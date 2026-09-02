@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { margin: 0; background: #f6f4fb; font-family: sans-serif; padding: 40px; }
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    aspect-ratio: 766 / 700;
+  }
+  .gradient-pill {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 27.42%;
+    height: 88.19%;
+    border-radius: 1000px;
+    border: 1px solid rgba(29,28,26,0.1);
+    background: linear-gradient(180deg, #FFB0CD 0%, #C39BDB 10%, #8687EA 80%, #8AE15B 100%);
+  }
+  .photo-frame {
+    position: absolute;
+    left: 27.94%;
+    top: 0%;
+    width: 55.35%;
+    height: 88.19%;
+    border-radius: 48px;
+    border: 1px solid rgba(29,28,26,0.1);
+    background: #d9d9d9;
+    overflow: hidden;
+  }
+  .photo-frame img {
+    position: absolute;
+    top: -13%;
+    left: -60%;
+    width: 220%;
+    height: 130%;
+    object-fit: cover;
+  }
+  .thin-pill {
+    position: absolute;
+    top: 0%;
+    width: 6.27%;
+    height: 88.19%;
+    border-radius: 24px;
+    border: 1px solid rgba(29,28,26,0.1);
+    background: rgba(29,28,26,0.06);
+  }
+  .thin-pill.a { left: 83.81%; }
+  .thin-pill.b { left: 90.60%; }
+  .badge-frame {
+    position: absolute;
+    left: 4.83%;
+    top: 26.16%;
+    width: 95.17%;
+    height: 73.84%;
+  }
+  .badge-frame img {
+    position: absolute;
+    left: 28.11%;
+    top: -10.93%;
+    width: 106.23%;
+    height: 132.44%;
+    object-fit: cover;
+    transform: rotate(14.52deg);
+    transform-origin: center center;
+  }
+</style>
+</head>
+<body>
+  <div class="hero-visual">
+    <div class="gradient-pill"></div>
+    <div class="photo-frame">
+      <img src="https://www.figma.com/api/mcp/asset/f90dee9a-6072-4a69-8001-92e01c714a09.png" alt="Glimlachende patiënt" />
+    </div>
+    <div class="thin-pill a"></div>
+    <div class="thin-pill b"></div>
+    <div class="badge-frame">
+      <img src="https://www.figma.com/api/mcp/asset/cc6ac1f3-25cd-4238-9065-67cc7d6557c2.png" alt="DNAmedicatiepas badge houder" />
+    </div>
+  </div>
+</body>
+</html>
