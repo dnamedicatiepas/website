@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <section id="Hero">
+        <section id="hero">
             <div class="border-top">
             </div> <!-- class="border-top"-->
 
@@ -44,50 +44,85 @@
                         <img src="images/logo.svg" alt="dnamedicatiepas logo"/>
                     </a>
                 </div> <!-- logo -->
-                <div class="nav-item">Buttons here</div>
-                <div class="nav-item"> Other style buttons here</div>
+
+                <div class="nav-item">
+                    <div class="segmented-toggle">
+                        <div class="segmented-toggle__tab segmented-toggle__tab--active">
+                            <p class="segmented-toggle__label segmented-toggle__label--active">Voor Patiënten</p>
+                            <div class="segmented-toggle__pointer"></div>
+                        </div>
+                        <div class="segmented-toggle__tab segmented-toggle__tab--inactive">
+                            <p class="segmented-toggle__label segmented-toggle__label--inactive">Voor Professionals</p>
+                        </div>
+                    </div>
+                </div> <!-- Center Buttons -->
+
+                <div class="nav-item"> 
+                    <a href="#" class="cta-button">
+                        <span class="cta-button__label">Informatie aanvragen</span>
+                        <span class="cta-button__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </span>
+                    </a>
+                </div> <!-- Right Buttons -->
             </nav>
             
 
 
-            <div class="in1scan">
-                <div class="in1scan-hdr">
+            <section id="in1scan">
 
-                    <div class="in1scan-txt">
-                    In één scan de
-                    </div> <!-- in 1 scan --> 
-                    <div class="in1scan-juiste">
-                    juiste medicatie.
-                    </div> <!-- in 1 scan juiste --> 
-                </div> <!-- header -->
+                <div >
+                    <div class="in1scan-hdr">
 
-                <div class="in1scan-body">
-                De DNAmedicatiepas vertaalt het DNA van de patiënt naar concrete medicatie adviezen. Veilig gedeeld via een QR-code, direct beschikbaar voor artsen en apothekers.
-                </div> <!-- in 1 scan body --> 
+                        <div class="in1scan-txt">
+                        In één scan de
+                        </div> <!-- in 1 scan --> 
+                        <div class="in1scan-juiste">
+                        juiste medicatie.
+                        </div> <!-- in 1 scan juiste --> 
+                    </div> <!-- header -->
 
-                <a style="display:block" href="#sectie42">
-                    <div class="bekijk-frame"> <!-- frame 614 -->
-                        <div class="bekijk-knop">
+                    <div class="in1scan-body">
+                    De DNAmedicatiepas vertaalt het DNA van de patiënt naar concrete medicatie adviezen. Veilig gedeeld via een QR-code, direct beschikbaar voor artsen en apothekers.
+                    </div> <!-- in 1 scan body --> 
 
-                            <div class="bekijk-tekst">
-                            <!--
-                            <a id="link" href="#sectie42">Bekijk hoe het werkt</a>
-                            -->
-                            Bekijk hoe het werkt
-                            </div> <!-- bekijk tekst -->
-                        </div> <!-- bekijk-knop -->
+                    <a style="display:block" href="#sectie42">
+                        <div class="bekijk-frame"> <!-- frame 614 -->
+                            <div class="bekijk-knop">
 
-                        <div class="pijl-blok">
-                            <div class="pijl-tekst">
-                                <i class="fa-light fa-arrow-down"> </i>
-                            </div> <!-- pijl-tekst -->
-                        </div> <!-- pijl-blok -->
+                                <div class="bekijk-tekst">
+                                <!--
+                                <a id="link" href="#sectie42">Bekijk hoe het werkt</a>
+                                -->
+                                Bekijk hoe het werkt
+                                </div> <!-- bekijk tekst -->
+                            </div> <!-- bekijk-knop -->
 
-                    </div> <!-- bekijk-frame -->
-                </a>
+                            <div class="pijl-blok">
+                                <div class="pijl-tekst">
+                                    <i class="fa-light fa-arrow-down"> </i>
+                                </div> <!-- pijl-tekst -->
+                            </div> <!-- pijl-blok -->
 
-
-            </div> <!-- in1scan -->
+                        </div> <!-- bekijk-frame -->
+                    </a>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="gradient-pill"></div>
+                    <div class="photo-frame">
+                    <img src="images/hero-image.svg" alt="Glimlachende patiënt" />
+                    </div>
+                    <div class="thin-pill a"></div>
+                    <div class="thin-pill b"></div>
+                    <div class="badge-frame">
+                    <img src="images/dna-medicatie-pas-badge.svg" alt="DNAmedicatiepas badge houder" />
+                    </div>
+                </div>
+            </section> <!-- in1scan -->
 
         </div> <!-- container2 -->
 
