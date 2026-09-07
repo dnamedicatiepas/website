@@ -220,8 +220,15 @@ nav {
     background: rgba(29, 28, 26, 0.06);
     overflow: hidden;
   }
-  .thin-pill.a { left: 83.81%; }
-  .thin-pill.b { left: 90.60%; }
+
+  .thin-pill.a { 
+    left: 83.81%; 
+  }
+
+  .thin-pill.b { 
+    left: 90.60%; 
+  }
+
   .badge-frame {
     position: absolute;
     left: 4.83%;
