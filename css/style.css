@@ -487,6 +487,86 @@ h2 {
   padding: 10px;
 }
 
+/* ===== Feature-kaarten (Figma 7389:390 / 396 / 402 / 408) ===== */
+#features {
+  width: 100%;
+  max-width: 1280px;
+  margin: 96px auto 0;
+  padding: 0 24px;
+}
+
+.feature-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 0 48px 0 24px;
+  border-left: 1px solid rgba(29, 28, 26, 0.2);
+}
+
+.feature-card__icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background: transparent;
+  color: #1D1C1A;
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* gradient ring only — drawn on a pseudo-element so the icon stays visible */
+.feature-card__icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  padding: 1px;
+  background: linear-gradient(155deg, #FFB0CD 0%, #C39BDB 35%, #8687EA 65%, #8AE15B 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+          mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.feature-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #1D1C1A;
+}
+
+.feature-card__title {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.feature-card__body {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 .background-text{
     font-family: "IBM Plex Mono";
     font-size: 12px;
@@ -494,7 +574,7 @@ h2 {
     font-weight: 400;
     line-height: 200%; /* 24px */
     letter-spacing: 0px;
-    background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0.12) 100%);
+    background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 100%);
     background-clip: text;
     word-break: break-word;         /* All browsers since IE 5.5+ */
     overflow-wrap: anywhere;
