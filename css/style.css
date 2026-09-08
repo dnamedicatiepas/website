@@ -84,10 +84,19 @@ nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   border: none;
+}
+
+/* the whole pill is the link */
+.segmented-toggle__tab a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .segmented-toggle__tab--active {
