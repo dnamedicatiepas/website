@@ -209,3 +209,122 @@ nav {
   width: 24px;
   height: 24px;
 }
+
+.cta-button--invert .cta-button__label,
+.cta-button--invert .cta-button__icon {
+  background-color: #F4F2F3;
+  color: #1D1C1A;
+}
+
+/* ===== Uw pas, uitgegeven door : (Figma 7468:2) ===== */
+#pasverstrekker {
+  display: flex;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 0;
+  isolation: isolate;
+}
+
+/* decorative vertical pill-bars, bled out to the viewport edges */
+.edge-bars {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  gap: 4px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.edge-bars--left  { left: calc(50% - 50vw); }
+.edge-bars--right { right: calc(50% - 50vw); flex-direction: row-reverse; }
+
+.edge-bar {
+  width: 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(29, 28, 26, 0.1);
+  background: rgba(29, 28, 26, 0.06);
+}
+
+.edge-bar--gradient {
+  background: linear-gradient(180deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
+}
+
+.pas-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1004px;
+  margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pas-panel__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 24px;
+  letter-spacing: 12px;
+  background: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+
+.pas-panel__top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.pas-panel__title {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 1px solid #F4F2F3;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: clamp(36px, 4.4vw, 56px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.pas-panel__logo {
+  flex-shrink: 0;
+  width: auto;
+  height: 96px;
+}
+
+.pas-panel__body {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 96px 0 32px;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.pas-panel__cta {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+}
+
+@media (max-width: 720px) {
+  .pas-panel { padding: 32px; }
+  .pas-panel__top { flex-direction: column; align-items: flex-start; }
+  .pas-panel__logo { height: 64px; }
+  .pas-panel__body { margin-top: 48px; }
+}
