@@ -37,6 +37,21 @@ section {
     border-top: 1px solid rgba(29, 28, 26, 0.10);
 }
 
+.border-bottom {
+    /* .container2 puts a 100px flex gap before every child; pull this one back up
+       so the footer sits ~24px above the bottom bar instead of 100px. */
+    margin: -76px 0 0;
+    /*position: fixed;*/
+    width: 100vw;
+    height: 6px;
+    background: linear-gradient(270deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
+    border-top: 1px solid rgba(29, 28, 26, 0.10);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
 #hero {
     width: 100%;
 }
@@ -260,6 +275,9 @@ nav {
     left: 5%;
     top: 6%;
     width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
 }
 
 #in1scan {
@@ -701,4 +719,124 @@ h2 {
   width: 24px;
   height: 24px;
   fill: currentColor;
+}
+
+/* ===== Meer weten over de DNAmedicatiepas? (Figma 7389:486) ===== */
+#meer-weten {
+  position: relative;
+  width: 100%;
+  max-width: 1528px;
+  /* between-section gap lives here as a margin: the `section { padding-bottom: 100px }`
+     rule is wiped out by this block's own `padding` shorthand, and the photo bleeds
+     ~50px above the panel, so a top margin is what actually separates it from the FAQ. */
+  margin: 120px auto 0;
+  padding: 80px 80px 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(29, 28, 26, 0.1);
+  background: #1D1C1A;
+  /* photo is allowed to bleed past the panel edges (see .mw-photo) */
+  overflow: visible;
+  isolation: isolate;
+}
+
+.background-text--on-dark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 24px;
+  letter-spacing: 12px;
+  background: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+
+.mw-photo {
+  position: absolute;
+  z-index: 1;
+  right: -3%;
+  bottom: 0;
+  width: 62%;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mw-scrim {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, rgba(29, 28, 26, 0) 0%, #1D1C1A 72%);
+  pointer-events: none;
+}
+
+.mw-content {
+  position: relative;
+  z-index: 3;
+  max-width: 622px;
+}
+
+.mw-title {
+  margin: 0 0 32px;
+  padding-left: 16px;
+  border-left: 1px solid #F4F2F3;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: clamp(36px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.mw-body {
+  max-width: 531px;
+  margin: 0 0 24px;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.cta-button--invert .cta-button__label,
+.cta-button--invert .cta-button__icon {
+  background-color: #F4F2F3;
+  color: #1D1C1A;
+}
+
+.mw-logos {
+  position: relative;
+  z-index: 3;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+  max-width: 1280px;
+  margin-top: 64px;
+}
+
+.mw-logos img {
+  display: block;
+  width: auto;
+}
+
+.mw-logos li:nth-child(1) img { height: 27px; }
+.mw-logos li:nth-child(2) img { height: 36px; }
+.mw-logos li:nth-child(3) img { height: 40px; }
+.mw-logos li:nth-child(4) img { height: 48px; }
+
+footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
