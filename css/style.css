@@ -624,6 +624,10 @@ h2 {
   transition: max-height 0.2s ease-out;
 }
 
+.panel p{
+  padding: 18px;
+}
+
 #veelgestelde-vragen {
   display: flex;
   justify-content: center;
