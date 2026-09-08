@@ -654,3 +654,51 @@ h2 {
   flex: 1;                 /* accordion column fills the rest */
   min-width: 0;
 }
+
+.faq-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 20px;
+  color: #F4F2F3;
+}
+
+.faq-button__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #1D1C1A;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: 'Switzer', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #F4F2F3;
+  white-space: nowrap;
+}
+
+.faq-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #1D1C1A;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #F4F2F3;
+  box-sizing: border-box;
+}
+
+.faq-button__icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
