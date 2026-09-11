@@ -1,13 +1,10 @@
-window.addEventListener('load', init);
+window.addEventListener('load', initAccordion);
+window.initAccordion = initAccordion;
 
-let acc;
-let i;
+function initAccordion() {
+    const acc = document.getElementsByClassName("accordion");
 
-function init() {
-    acc = document.getElementsByClassName("accordion");
-    i;
-
-    for (i = 0; i < acc.length; i++) {
+    for (let i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function() {
             this.classList.toggle("active");
             var panel = this.nextElementSibling;
@@ -17,8 +14,5 @@ function init() {
             panel.style.maxHeight = panel.scrollHeight + "px";
             }
         });
+    }
 }
-}
-
-
-
