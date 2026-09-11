@@ -865,3 +865,22 @@ footer {
   justify-content: space-around;
   align-items: center;
 }
+
+/* ===== 404 page ===== */
+#not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding: 140px 24px;
+}
+
+#not-found .in1scan-hdr {
+  align-items: center;
+  text-align: center;
+}
+
+#not-found .h2-caption {
+  max-width: 480px;
+}
