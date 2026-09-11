@@ -1,7 +1,6 @@
-window.addEventListener('load', initAccordion);
-window.initAccordion = initAccordion;
+window.addEventListener('load', init);
 
-function initAccordion() {
+function init() {
     const acc = document.getElementsByClassName("accordion");
 
     for (let i = 0; i < acc.length; i++) {
