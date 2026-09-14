@@ -29,6 +29,9 @@ ext install runem.lit-plugin
 This validates the HTML inside `` html`...` `` templates — unclosed tags,
 unknown tag names, bad attributes — and adds highlighting and autocomplete.
 
+If you are using any of the Jetbrains IDE's such as WebStorm or PHPStorm there is no need for an extra
+plugin. It will automatically recognize HTML inside templates and format code.
+
 `jsconfig.json` enables `checkJs` and `strict`, so the JavaScript is
 type-checked from JSDoc comments. To run the same check in a terminal:
 
