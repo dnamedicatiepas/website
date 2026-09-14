@@ -370,6 +370,12 @@ nav {
     line-height: 1.5;
 }
 
+#explanation {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
 #explanation-top {
   display: flex;
   justify-content: space-between;
@@ -437,3 +443,154 @@ nav {
 .mw-logos li:nth-child(2) img { height: 36px; }
 .mw-logos li:nth-child(3) img { height: 40px; }
 .mw-logos li:nth-child(4) img { height: 48px; }
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.panel p{
+  padding: 18px;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(29, 28, 26, 0.15);
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  font-family: 'Switzer', sans-serif;
+}
+
+.accordion:after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: transform 0.3s ease;
+  float: right;
+}
+
+.active:after {
+transform: rotate(180deg);
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+#veelgestelde-vragen {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px;
+  max-width: 1080px;
+  margin: 0 auto;          /* centre the whole block on the page */
+  padding-left: 36px;
+  padding-right: 36px;
+  border-radius: 24px;
+    border: 1px solid rgba(29, 28, 26, 0.1);
+    background: rgba(29, 28, 26, 0.06);
+}
+
+#veelgestelde-vragen {
+  padding: 30px;
+}
+
+#veelgestelde-vragen > div:first-child {
+  flex: 0 0 320px;         /* heading column: fixed width, left side */
+}
+
+#accordion-menu {
+  flex: 1;                 /* accordion column fills the rest */
+  min-width: 0;
+}
+
+.faq-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 20px;
+  color: #F4F2F3;
+}
+
+.faq-button__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #1D1C1A;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: 'Switzer', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #F4F2F3;
+  white-space: nowrap;
+}
+
+.faq-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #1D1C1A;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #F4F2F3;
+  box-sizing: border-box;
+}
+
+.faq-button__icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+h2 {
+  align-self: stretch;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 65px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -4px;
+    margin-bottom: 24px;
+}
+
+.h2-caption {
+  font-family: Switzer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(29, 28, 26, 0.7);
+}
+
+.stap-body {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 400;
+  font-size: clamp(12px, 1.25vw, 16px);
+  line-height: 1.5;
+  color: #1D1C1A;
+}
