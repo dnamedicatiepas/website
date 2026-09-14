@@ -1,3 +1,12 @@
+/* Shared base: reset, shell layout, nav, buttons, typography and the FAQ block.
+   Page-specific rules live in pages/<Name>.css, scoped to body[data-page="..."].
+   A page stylesheet may also override the shell layout below (Professionals.css
+   tightens the section gap and the nav spacing, for example). */
+
+a {
+    text-decoration: none;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -13,6 +22,17 @@ section {
     padding-bottom: 100px;
 }
 
+/* ===== Shell (index.html) ===== */
+.container {
+    width: 100%;
+    /* Minimum document height; short pages (404) still scroll to here. */
+    height: 2000px;
+    flex-grow: 1;
+    align-items: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
 
 .border-top {
     margin: 0;
@@ -37,50 +57,50 @@ section {
     transform: translateX(-50%);
 }
 
-.background-text{
-    font-family: "IBM Plex Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 200%; /* 24px */
-    letter-spacing: 0px;
-    background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 100%);
-    background-clip: text;
-    word-break: break-word;         /* All browsers since IE 5.5+ */
-    overflow-wrap: anywhere;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    z-index: -1;
+#hero {
+    width: 100%;
 }
 
-.prevent-select { /*class for components that shouldn't be able to be selected */
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-
-.container {
+/* Nav plus #app, floated over the decorative hero. */
+.container2 {
     position: absolute;
     left: 5%;
     top: 6%;
     width: 90%;
     display: flex;
     flex-direction: column;
-    gap: 0px;
+    gap: 100px;
 }
 
-nav {
-    padding-bottom: 50px;
+/* The page's sections are swapped into #app; it stacks them with the same gap
+   as .container2 so nav → section → section spacing is uniform. */
+#app {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+/* ===== Nav ===== */
+#nav {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 100px;
 }
 
-.nav-item{ 
+.nav-item{
     display: flex;
     padding: 8px 12px;
     justify-content: center;
     align-items: center;
     gap: 8px;
+}
+
+.logo {
+    margin: 0;
+    width: 173.424px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.282px;
 }
 
 .segmented-toggle {
@@ -163,6 +183,13 @@ nav {
   transform: rotate(45deg);
 }
 
+/* Both tabs carry a pointer in the markup; the router flips the tab modifier
+   and only the active tab shows it. */
+.segmented-toggle__tab--inactive .segmented-toggle__pointer {
+  display: none;
+}
+
+/* ===== CTA button ===== */
 .cta-button {
   display: inline-flex;
   align-items: center;
@@ -214,205 +241,6 @@ nav {
   color: #1D1C1A;
 }
 
-/* ===== Uw pas, uitgegeven door : (Figma 7468:2) ===== */
-#pasverstrekker {
-  display: flex;
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-  padding-bottom: 0;
-  isolation: isolate;
-}
-
-/* decorative vertical pill-bars, bled out to the viewport edges */
-.edge-bars {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  gap: 4px;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.edge-bars--left  { left: calc(50% - 50vw); }
-.edge-bars--right { right: calc(50% - 50vw); flex-direction: row-reverse; }
-
-.edge-bar {
-  width: 48px;
-  border-radius: 24px;
-  border: 1px solid rgba(29, 28, 26, 0.1);
-  background: rgba(29, 28, 26, 0.06);
-}
-
-.edge-bar--gradient {
-  background: linear-gradient(180deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
-}
-
-.pas-panel {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 1004px;
-  margin: 0 auto;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.pas-panel__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  padding: 24px 32px;
-  overflow: hidden;
-  border-radius: 24px;
-  letter-spacing: 12px;
-  background: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  pointer-events: none;
-}
-
-.pas-panel__top {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 32px;
-}
-
-.pas-panel__title {
-  margin: 0;
-  padding-left: 16px;
-  border-left: 1px solid #F4F2F3;
-  color: #F4F2F3;
-  font-family: Switzer, sans-serif;
-  font-size: clamp(36px, 4.4vw, 56px);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-}
-
-.pas-panel__logo {
-  flex-shrink: 0;
-  width: auto;
-  height: 96px;
-}
-
-.pas-panel__body {
-  position: relative;
-  z-index: 1;
-  max-width: 620px;
-  margin: 96px 0 32px;
-  color: #F4F2F3;
-  font-family: Switzer, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.pas-panel__cta {
-  position: relative;
-  z-index: 1;
-  align-self: flex-start;
-}
-
-#hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#Hero h1 {
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    color: #1D1C1A;
-    font-family: Switzer;
-    font-size: 80px;
-    font-style: normal;
-    font-weight: 500;/* 80px */
-    letter-spacing: -4px;
-}
-
-#data {
-  display: flex;
-  gap: 48px;
-}
-
-.data-listing {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.data-bignumber {
-    margin: 0;
-    color: #1D1C1A;
-    font-family: Switzer;
-    font-size: 64px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -2.56px;
-}
-
-.data-text {
-    margin: 0;
-    color: #1D1C1A;
-    font-family: Switzer;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-#explanation {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-#explanation-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-#explanation-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 32px;
-  max-width: 700px;
-  align-items: flex-start;
-}
-
-.explanation-text__primary {
-  margin: 0;
-  color: #1D1C1A;
-  font-family: Switzer;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: left;
-}
-
-.explanation-text__secondary {
-  margin: 0;
-  color: rgba(29, 28, 26, 0.6);
-  font-family: Switzer;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: left;
-}
-
 .cta-button--dark .cta-button__label,
 .cta-button--dark .cta-button__icon {
   background-color: #1D1C1A;
@@ -420,42 +248,95 @@ nav {
   align-items: left;
 }
 
-.mw-logos {
-  z-index: 3;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: space-around;
-  gap: 32px;
-  width: 100%;
-  max-width: 1280px;
-  margin: 64px auto 0;
-  padding: 0;
+/* ===== Typography ===== */
+/* Display heading: the patients hero and the 404 page. */
+.in1scan-hdr {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
 }
 
-.mw-logos img {
-  display: block;
-  width: auto;
+.in1scan-txt {
+    align-self: stretch;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 50%; /* 80px */
+    letter-spacing: -4px;
 }
 
-.mw-logos li:nth-child(1) img { height: 27px; }
-.mw-logos li:nth-child(2) img { height: 36px; }
-.mw-logos li:nth-child(3) img { height: 40px; }
-.mw-logos li:nth-child(4) img { height: 48px; }
-
-.panel {
-  padding: 0 18px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
+.in1scan-juiste {
+    align-self: stretch;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 500;
+    /* line-height: 100%; /* 80px */
+    letter-spacing: -4px;
+    background: linear-gradient(270deg, #8AE15B 0%, #8687EA 20%, #C39BDB 90%, #FFB0CD 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.panel p{
-  padding: 18px;
+h2 {
+  align-self: stretch;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 65px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -4px;
+    margin-bottom: 24px;
 }
 
+.h2-caption {
+  font-family: Switzer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(29, 28, 26, 0.7);
+}
+
+/* Body copy: step cards, FAQ answers and the footer. */
+.stap-body {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 400;
+  font-size: clamp(12px, 1.25vw, 16px);
+  line-height: 1.5;
+  color: #1D1C1A;
+}
+
+/* ===== Decorative DNA text ===== */
+.background-text{
+    font-family: "IBM Plex Mono";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 200%; /* 24px */
+    letter-spacing: 0px;
+    background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 100%);
+    background-clip: text;
+    word-break: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: anywhere;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: -1;
+}
+
+.prevent-select { /*class for components that shouldn't be able to be selected */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+/* ===== Veelgestelde vragen (components/Faq.js) ===== */
 .accordion {
   background-color: #eee;
   color: #444;
@@ -488,7 +369,19 @@ transform: rotate(180deg);
 }
 
 .active, .accordion:hover {
-  background-color: #ccc; 
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.panel p{
+  padding: 18px;
 }
 
 #veelgestelde-vragen {
@@ -566,31 +459,31 @@ transform: rotate(180deg);
   fill: currentColor;
 }
 
-h2 {
-  align-self: stretch;
-    color: #1D1C1A;
-    font-family: Switzer;
-    font-size: 65px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -4px;
-    margin-bottom: 24px;
+/* ===== Hospital logo strip ===== */
+/* Alignment and margins differ per page; see Patienten.css / Professionals.css. */
+.mw-logos {
+  z-index: 3;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 1280px;
 }
 
-.h2-caption {
-  font-family: Switzer;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: rgba(29, 28, 26, 0.7);
+.mw-logos img {
+  display: block;
+  width: auto;
 }
 
-.stap-body {
-  margin: 0;
-  font-family: Switzer, sans-serif;
-  font-weight: 400;
-  font-size: clamp(12px, 1.25vw, 16px);
-  line-height: 1.5;
-  color: #1D1C1A;
+.mw-logos li:nth-child(1) img { height: 27px; }
+.mw-logos li:nth-child(2) img { height: 36px; }
+.mw-logos li:nth-child(3) img { height: 40px; }
+.mw-logos li:nth-child(4) img { height: 48px; }
+
+/* ===== Footer (components/Footer.js) ===== */
+footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

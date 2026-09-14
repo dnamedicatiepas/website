@@ -3,12 +3,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles.css">
     <link href='https://fonts.googleapis.com/css?family=IBM Plex Mono' rel='stylesheet'>
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fontawesome6pro@1.0.2/css/all.min.css" rel="stylesheet">
-    <script src="js/router.js" defer></script>
-    <script src="js/accordion.js" defer></script>
     <title>dnamedicatiepas.nl</title>
 </head>
 <body>
@@ -41,30 +39,33 @@
 
 
         <div class="container2">
+            <!-- Shared chrome: the router (app.js) flips the segmented toggle to
+                 the tab of the page being shown; data-link marks in-app routes. -->
             <nav id="nav">
                 <div class="logo nav-item">
-                    <a href="./">
+                    <a href="#/" data-link>
                         <img src="images/logo.svg" alt="dnamedicatiepas logo"/>
                     </a>
                 </div> <!-- logo -->
 
                 <div class="nav-item">
                     <div class="segmented-toggle">
-                        <div class="segmented-toggle__tab segmented-toggle__tab--active">
-                            <a href="./">
-                                <p class="segmented-toggle__label segmented-toggle__label--active">Voor Patiënten</p>
+                        <div class="segmented-toggle__tab segmented-toggle__tab--inactive">
+                            <a href="#/" data-link>
+                                <p class="segmented-toggle__label segmented-toggle__label--inactive">Voor Patiënten</p>
                                 <div class="segmented-toggle__pointer"></div>
                             </a>
                         </div>
                         <div class="segmented-toggle__tab segmented-toggle__tab--inactive">
-                            <a href="voor-professionals/">
+                            <a href="#/voor-professionals" data-link>
                                 <p class="segmented-toggle__label segmented-toggle__label--inactive">Voor Professionals</p>
+                                <div class="segmented-toggle__pointer"></div>
                             </a>
                         </div>
                     </div>
                 </div> <!-- Center Buttons -->
 
-                <div class="nav-item"> 
+                <div class="nav-item">
                     <a href="#" class="cta-button">
                         <span class="cta-button__label">Informatie aanvragen</span>
                         <span class="cta-button__icon" aria-hidden="true">
@@ -76,281 +77,14 @@
                     </a>
                 </div> <!-- Right Buttons -->
             </nav>
-            
 
-
-            <section id="in1scan">
-
-                <div >
-                    <div class="in1scan-hdr">
-
-                        <h1 class="in1scan-txt">
-                        In één scan de
-                        </h1> <!-- in 1 scan --> 
-                        <h1 class="in1scan-juiste">
-                        juiste medicatie.
-                        </h1> <!-- in 1 scan juiste --> 
-                    </div> <!-- header -->
-
-                    <div class="in1scan-body">
-                    De DNAmedicatiepas vertaalt het DNA van de patiënt naar concrete medicatie adviezen. Veilig gedeeld via een QR-code, direct beschikbaar voor artsen en apothekers.
-                    </div> <!-- in 1 scan body --> 
-
-                    <a style="display:block" href="#section42">
-                        <div class="bekijk-frame"> <!-- frame 614 -->
-                            <div class="bekijk-knop">
-
-                                <div class="bekijk-tekst">
-                                <!--
-                                <a id="link" href="#sectie42">Bekijk hoe het werkt</a>
-                                -->
-                                Bekijk hoe het werkt
-                                </div> <!-- bekijk tekst -->
-                            </div> <!-- bekijk-knop -->
-
-                            <div class="pijl-blok">
-                                <div class="pijl-tekst">
-                                    <i class="fa-light fa-arrow-down"> </i>
-                                </div> <!-- pijl-tekst -->
-                            </div> <!-- pijl-blok -->
-
-                        </div> <!-- bekijk-frame -->
-                    </a>
-                </div>
-                
-                <div class="hero-visual">
-                    <div class="gradient-pill"></div>
-                    <div class="photo-frame">
-                        <img src="images/hero-image.svg" alt="Glimlachende patiënt" />
-                    </div>
-                    <div class="thin-pill a"></div>
-                    <div class="thin-pill b"></div>
-                    <div class="badge-frame">
-                        <img src="images/dna-medicatie-pas-badge.svg" alt="DNAmedicatiepas badge houder" />
-                    </div>
-                </div>
-            </section> <!-- in1scan -->
-
-            <section id="section42">
-                <div class="sectie-intro">
-                    <h2>
-                        Hoe het werkt!
-                    </h2>
-                    <p class="h2-caption">
-                        Met de DNAmedicatiepas krijgt u direct toegang tot het DNA-profiel van uw patiënt.
-                        Zo ziet u in één oogopslag welke medicatie het beste past, voorkomt u bijwerkingen
-                        en verhoogt u de behandelveiligheid.
-                    </p>
-                </div>
-
-                <div class="stappen">
-                    <article class="stap-kaart">
-                        <div class="stap-tekst">
-                            <div class="stap-kop">
-                                <span class="stap-badge">001</span>
-                                <h3 class="stap-titel">De arts vraagt de DNAmedicatiepas aan voor jou als patiënt.</h3>
-                            </div>
-                            <p class="stap-body">
-                                De arts vraagt de DNA-medicatiepas aan, die wordt verstrekt door aangesloten instellingen.
-                                Je ontvangt je eigen pas met je persoonlijke QR-code.
-                            </p>
-                        </div>
-                        <div class="stap-visual">
-                            <img src="images/how-it-works/stap-1.png" alt="DNAmedicatiepas met persoonlijke QR-code" />
-                        </div>
-                    </article>
-
-                    <article class="stap-kaart">
-                        <div class="stap-tekst">
-                            <div class="stap-kop">
-                                <span class="stap-badge">002</span>
-                                <h3 class="stap-titel">De QR-code wordt gescand bij de arts en/of apotheker.</h3>
-                            </div>
-                            <p class="stap-body">
-                                Elke smartphone of tablet kan uw persoonlijke QR-code scannen. Hierdoor is uw pas bij elk
-                                ziekenhuis, apotheek of zorginstelling eenvoudig te gebruiken.
-                            </p>
-                        </div>
-                        <div class="stap-visual">
-                            <img src="images/how-it-works/stap-2.png" alt="Smartphone die de QR-code op de DNAmedicatiepas scant" />
-                        </div>
-                    </article>
-
-                    <article class="stap-kaart">
-                        <div class="stap-tekst">
-                            <div class="stap-kop">
-                                <span class="stap-badge">003</span>
-                                <h3 class="stap-titel">Persoonlijke medicatie adviezen verschijnen op uw telefoon of tablet.</h3>
-                            </div>
-                            <p class="stap-body">
-                                Dit ondersteunt uw klinische besluitvorming, verbetert de patiëntveiligheid en maakt
-                                precisiegeneeskunde praktisch toepasbaar in de dagelijkse workflow.
-                            </p>
-                        </div>
-                        <div class="stap-visual">
-                            <img src="images/how-it-works/stap-3.png" alt="Medicatieoverzicht met adviezen op een smartphone" />
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <section id="features">
-                <ul class="feature-grid">
-                    <li class="feature-card">
-                        <span class="feature-card__icon" aria-hidden="true">
-                            <i class="fa-regular fa-credit-card"></i>
-                        </span>
-                        <div class="feature-card__text">
-                            <h3 class="feature-card__title">Altijd bij de hand</h3>
-                            <p class="feature-card__body">Met de DNAmedicatiepas heb je je persoonlijke medicatie-informatie veilig op zak.</p>
-                        </div>
-                    </li>
-
-                    <li class="feature-card">
-                        <span class="feature-card__icon" aria-hidden="true">
-                            <i class="fa-regular fa-pills"></i>
-                        </span>
-                        <div class="feature-card__text">
-                            <h3 class="feature-card__title">Minder bijwerkingen</h3>
-                            <p class="feature-card__body">Het advies houdt rekening met jouw DNA, zodat medicijnen beter bij jou passen.</p>
-                        </div>
-                    </li>
-
-                    <li class="feature-card">
-                        <span class="feature-card__icon" aria-hidden="true">
-                            <i class="fa-regular fa-clock"></i>
-                        </span>
-                        <div class="feature-card__text">
-                            <h3 class="feature-card__title">Sneller de juiste medicatie</h3>
-                            <p class="feature-card__body">Artsen en apothekers zien meteen wat voor jou werkt, zonder trial &amp; error.</p>
-                        </div>
-                    </li>
-
-                    <li class="feature-card">
-                        <span class="feature-card__icon" aria-hidden="true">
-                            <i class="fa-sharp fa-thin fa-sparkles"></i>
-                        </span>
-                        <div class="feature-card__text">
-                            <h3 class="feature-card__title">Altijd up-to-date</h3>
-                            <p class="feature-card__body">Nieuwe inzichten of aanpassingen worden direct via je pas beschikbaar.</p>
-                        </div>
-                    </li>
-                </ul>
-            </section>
-
-            <section id="veelgestelde-vragen">
-                <div>
-                    <h2>Veelgestelde Vragen</h2>
-                    <div>
-                        <p class="h2-caption">
-                            Meer vragen?
-                        </p>
-                        <p class="h2-caption">
-                            Neem contact op met het team via consortium@dnamedicatiepas.nl
-                        </p>
-                    </div>
-                </div>
-                <div id="accordion-menu">
-                    <button class="accordion">Wie kan mijn gegevens inzien?</button>
-                    <div class="panel">
-                    <p class="stap-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-
-                    <button class="accordion">Kan iedereen een medicatiepas krijgen?</button>
-                    <div class="panel">
-                    <p class="stap-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-
-                    <button class="accordion">Hoe vraag ik een pas aan?</button>
-                    <div class="panel">
-                    <p class="stap-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-
-                    <button class="accordion">Moet ik betalen voor een pas?</button>
-                    <div class="panel">
-                    <p class="stap-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
-                    </div>
-
-                    <button class="accordion">Is mijn kaart beveiligd?</button>
-                    <div class="panel">
-                    <p class="stap-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-
-                    <a href="#" class="faq-button">
-                        <span class="faq-button__label">Bekijk alle veelgestelde vragen</span>
-                        <span class="faq-button__icon" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                                <path d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"/>
-                            </svg>
-                        </span>
-                    </a>
-                </div>
-            </section>
-
-            <section id="meer-weten">
-                <div class="background-text background-text--on-dark prevent-select" aria-hidden="true">
-                    T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G
-                </div>
-
-                <img class="mw-photo" src="images/meer-weten/person-card.svg" alt="Patiënt houdt de DNAmedicatiepas vast" />
-                <div class="mw-scrim" aria-hidden="true"></div>
-
-                <div class="mw-content">
-                    <h2 class="mw-title">Meer weten over de DNAmedicatiepas?</h2>
-                    <p class="mw-body">
-                        Heeft u interesse in wat DNAmedicatiepas voor uw situatie kan betekenen?
-                        Klik op het logo van uw ziekenhuis voor meer informatie of vraag direct om
-                        meer informatie.
-                    </p>
-                    <a href="#" class="cta-button cta-button--invert">
-                        <span class="cta-button__label">Informatie aanvragen</span>
-                        <span class="cta-button__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                            </svg>
-                        </span>
-                    </a>
-                </div>
-
-                <ul class="mw-logos">
-                    <li><img src="images/meer-weten/logo-amsterdam-umc.svg" alt="Amsterdam UMC" /></li>
-                    <li><img src="images/meer-weten/logo-lumc.svg" alt="Leids Universitair Medisch Centrum" /></li>
-                    <li><img src="images/meer-weten/logo-prinses-maxima.svg" alt="Prinses Máxima Centrum" /></li>
-                    <li><img src="images/meer-weten/logo-maastad.svg" alt="Maasstad Ziekenhuis" /></li>
-                </ul>
-            </section>
-
-            <footer>
-                <div>
-                    <p class="stap-body">
-                        © DNAmedicatiepas B.V.
-                    </p>
-                </div>
-                <div class="logo">
-                    <a href="./">
-                        <img src="images/logo.svg" alt="dnamedicatiepas logo"/>
-                    </a>
-                </div>
-                <div>
-                    <a href="#" class="cta-button">
-                        <span class="cta-button__label">Informatie aanvragen</span>
-                        <span class="cta-button__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                            </svg>
-                        </span>
-                    </a> 
-                </div>
-            </footer>
-            
-            <div class="border-bottom"></div>  
+            <!-- The current page (pages/*.js) renders its sections in here. -->
+            <div id="app"></div>
         </div> <!-- container2 -->
         </div> <!-- container -->
 
-    </main>     
+    </main>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>

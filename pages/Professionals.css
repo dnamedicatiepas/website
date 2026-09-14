@@ -1,0 +1,221 @@
+/* Voor Professionals. Every selector is scoped to the active page, so these
+   rules can never leak into the other pages even though the file stays loaded. */
+
+/* ===== Shell overrides ===== */
+/* This page sits tighter under the nav, stacks its sections without the 100px
+   flex gap the other pages use, and has no fixed minimum document height. */
+body[data-page="professionals"] .container {
+  height: auto;
+}
+
+body[data-page="professionals"] .container2,
+body[data-page="professionals"] #app {
+  gap: 0px;
+}
+
+body[data-page="professionals"] #nav {
+  padding-bottom: 50px;
+}
+
+/* ===== Betrouwbare medicatiebeslissingen (intro) ===== */
+body[data-page="professionals"] #intro h1 {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 500;/* 80px */
+    letter-spacing: -4px;
+}
+
+/* ===== Uw pas, uitgegeven door : (Figma 7468:2) ===== */
+body[data-page="professionals"] #pasverstrekker {
+  display: flex;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 0;
+  isolation: isolate;
+}
+
+/* decorative vertical pill-bars, bled out to the viewport edges */
+body[data-page="professionals"] .edge-bars {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  gap: 4px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body[data-page="professionals"] .edge-bars--left  { left: calc(50% - 50vw); }
+body[data-page="professionals"] .edge-bars--right { right: calc(50% - 50vw); flex-direction: row-reverse; }
+
+body[data-page="professionals"] .edge-bar {
+  width: 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(29, 28, 26, 0.1);
+  background: rgba(29, 28, 26, 0.06);
+}
+
+body[data-page="professionals"] .edge-bar--gradient {
+  background: linear-gradient(180deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
+}
+
+body[data-page="professionals"] .pas-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1004px;
+  margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+body[data-page="professionals"] .pas-panel__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 24px;
+  letter-spacing: 12px;
+  background: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+
+body[data-page="professionals"] .pas-panel__top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+body[data-page="professionals"] .pas-panel__title {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 1px solid #F4F2F3;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: clamp(36px, 4.4vw, 56px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+body[data-page="professionals"] .pas-panel__logo {
+  flex-shrink: 0;
+  width: auto;
+  height: 96px;
+}
+
+body[data-page="professionals"] .pas-panel__body {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 96px 0 32px;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body[data-page="professionals"] .pas-panel__cta {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+}
+
+/* ===== Explanation ===== */
+body[data-page="professionals"] #data {
+  display: flex;
+  gap: 48px;
+}
+
+body[data-page="professionals"] .data-listing {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+body[data-page="professionals"] .data-bignumber {
+    margin: 0;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -2.56px;
+}
+
+body[data-page="professionals"] .data-text {
+    margin: 0;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+body[data-page="professionals"] #explanation {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+body[data-page="professionals"] #explanation-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+body[data-page="professionals"] #explanation-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 32px;
+  max-width: 700px;
+  align-items: flex-start;
+}
+
+body[data-page="professionals"] .explanation-text__primary {
+  margin: 0;
+  color: #1D1C1A;
+  font-family: Switzer;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+}
+
+body[data-page="professionals"] .explanation-text__secondary {
+  margin: 0;
+  color: rgba(29, 28, 26, 0.6);
+  font-family: Switzer;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Logo strip sits below the explanation, centred and evenly spread. */
+body[data-page="professionals"] .mw-logos {
+  align-content: center;
+  justify-content: space-around;
+  margin: 64px auto 0;
+  padding: 0;
+}

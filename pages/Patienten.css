@@ -1,0 +1,421 @@
+/* Voor Patiënten. Every selector is scoped to the active page, so these rules
+   can never leak into the other pages even though the file stays loaded. */
+
+/* ===== In één scan (hero) ===== */
+body[data-page="patienten"] #in1scan {
+    display: flex;
+    width: 551px;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+}
+
+body[data-page="patienten"] .in1scan-body {
+    align-self: stretch;
+    color: #1D1C1A;
+    font-family: Switzer;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 30px */
+}
+
+body[data-page="patienten"] .bekijk-frame { /* frame 614 */
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+body[data-page="patienten"] .bekijk-knop { /* frame 612 */
+    display: flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: #1D1C1A;
+}
+
+body[data-page="patienten"] .bekijk-tekst {
+    color: #F4F2F3;
+    text-align: center;
+    font-family: Switzer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+}
+
+body[data-page="patienten"] .pijl-blok { /* frame 613 */
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: #1D1C1A;
+}
+
+body[data-page="patienten"] .pijl-tekst {
+    width: 24px;
+    color: #F4F2F3;
+    text-align: center;
+    font-family: "Font Awesome 6 Pro";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%; /* 24px */
+}
+
+body[data-page="patienten"] .hero-visual {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    aspect-ratio: 766 / 700;
+  }
+  body[data-page="patienten"] .gradient-pill {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 27.42%;
+    height: 88.19%;
+    border-radius: 1000px;
+    border: 1px solid rgba(29,28,26,0.1);
+    background: linear-gradient(180deg, #FFB0CD 0%, #C39BDB 10%, #8687EA 80%, #8AE15B 100%);
+  }
+  body[data-page="patienten"] .photo-frame {
+    position: absolute;
+    left: 27.94%;
+    top: 0%;
+    width: 55.35%;
+    height: 88.19%;
+    border-radius: 48px;
+    border: 1px solid rgba(29,28,26,0.1);
+    background: #d9d9d9;
+    overflow: hidden;
+  }
+  body[data-page="patienten"] .photo-frame img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  body[data-page="patienten"] .thin-pill {
+    position: absolute;
+    top: 0%;
+    width: 6.27%;
+    height: 88.19%;
+    border-radius: 24px;
+    border: 1px solid rgba(29, 28, 26, 0.1);
+    background: rgba(29, 28, 26, 0.06);
+    overflow: hidden;
+  }
+
+  body[data-page="patienten"] .thin-pill.a {
+    left: 83.81%;
+  }
+
+  body[data-page="patienten"] .thin-pill.b {
+    left: 90.60%;
+  }
+
+  body[data-page="patienten"] .badge-frame {
+    position: absolute;
+    left: 4.83%;
+    top: 26.16%;
+    width: 95.17%;
+    height: 73.84%;
+  }
+  body[data-page="patienten"] .badge-frame img {
+    position: absolute;
+    left: 28.11%;
+    top: -10.93%;
+    width: 106.23%;
+    height: 132.44%;
+    object-fit: cover;
+    transform: rotate(14.52deg);
+    transform-origin: center center;
+  }
+
+body[data-page="patienten"] .hero-visual img{
+  z-index: 2;
+}
+
+body[data-page="patienten"] .hero-visual div{
+  padding: 10px;
+}
+
+/* ===== Hoe het werkt ===== */
+body[data-page="patienten"] #section42 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+body[data-page="patienten"] #section42 .sectie-intro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 640px; /* keeps the caption in a readable centered column */
+}
+
+/* ===== Hoe het werkt — stap-kaarten (Figma 7389:328 / 7389:414 / 7389:75) ===== */
+body[data-page="patienten"] .stappen {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1120px;
+  margin-top: 64px;
+}
+
+body[data-page="patienten"] .stap-kaart {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1280 / 640;
+  border-radius: 40px;
+  border: 1px solid rgba(29, 28, 26, 0.1);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  overflow: hidden;
+}
+
+body[data-page="patienten"] .stap-visual {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 58%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+body[data-page="patienten"] .stap-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px);
+          mask-image: linear-gradient(to right, transparent 0, #000 48px);
+}
+
+body[data-page="patienten"] .stap-tekst {
+  position: absolute;
+  top: 50%;
+  left: 8.36%;              /* 107 / 1280 */
+  width: 37.5%;             /* ~480 / 1280 */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(24px, 5vw, 64px);
+  text-align: left;
+  z-index: 2;
+}
+
+body[data-page="patienten"] .stap-kop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+body[data-page="patienten"] .stap-badge {
+  padding: 4px 16px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  font-family: Switzer, sans-serif;
+  font-size: clamp(12px, 1.25vw, 16px);
+  line-height: 1.5;
+  color: #1D1C1A;
+}
+
+body[data-page="patienten"] .stap-titel {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 500;
+  font-size: clamp(24px, 3.75vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #1D1C1A;
+}
+
+/* ===== Feature-kaarten (Figma 7389:390 / 396 / 402 / 408) ===== */
+body[data-page="patienten"] #features {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+body[data-page="patienten"] .feature-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+body[data-page="patienten"] .feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 0 48px 0 24px;
+  border-left: 1px solid rgba(29, 28, 26, 0.2);
+}
+
+body[data-page="patienten"] .feature-card__icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background: transparent;
+  color: #1D1C1A;
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* gradient ring only — drawn on a pseudo-element so the icon stays visible */
+body[data-page="patienten"] .feature-card__icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  padding: 1px;
+  background: linear-gradient(155deg, #FFB0CD 0%, #C39BDB 35%, #8687EA 65%, #8AE15B 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+          mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+body[data-page="patienten"] .feature-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #1D1C1A;
+}
+
+body[data-page="patienten"] .feature-card__title {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+body[data-page="patienten"] .feature-card__body {
+  margin: 0;
+  font-family: Switzer, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ===== Meer weten over de DNAmedicatiepas? (Figma 7389:486) ===== */
+body[data-page="patienten"] #meer-weten {
+  position: relative;
+  width: 100%;
+  max-width: 1528px;
+  /* between-section gap lives here as a margin: the `section { padding-bottom: 100px }`
+     rule is wiped out by this block's own `padding` shorthand, and the photo bleeds
+     ~50px above the panel, so a top margin is what actually separates it from the FAQ. */
+  margin: 120px auto 0;
+  padding: 80px 80px 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(29, 28, 26, 0.1);
+  background: #1D1C1A;
+  /* photo is allowed to bleed past the panel edges (see .mw-photo) */
+  overflow: visible;
+  isolation: isolate;
+}
+
+body[data-page="patienten"] .background-text--on-dark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 24px;
+  letter-spacing: 12px;
+  background: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+
+body[data-page="patienten"] .mw-photo {
+  position: absolute;
+  z-index: 1;
+  right: -3%;
+  bottom: 0;
+  width: 62%;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+body[data-page="patienten"] .mw-scrim {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, rgba(29, 28, 26, 0) 0%, #1D1C1A 72%);
+  pointer-events: none;
+}
+
+body[data-page="patienten"] .mw-content {
+  position: relative;
+  z-index: 3;
+  max-width: 622px;
+}
+
+body[data-page="patienten"] .mw-title {
+  margin: 0 0 32px;
+  padding-left: 16px;
+  border-left: 1px solid #F4F2F3;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: clamp(36px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+body[data-page="patienten"] .mw-body {
+  max-width: 531px;
+  margin: 0 0 24px;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Logo strip sits inside the dark panel, layered above the photo and scrim. */
+body[data-page="patienten"] .mw-logos {
+  position: relative;
+  justify-content: space-between;
+  margin-top: 64px;
+}
