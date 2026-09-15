@@ -68,7 +68,7 @@ export default {
     return html`
       <section id="in1scan">
 
-          <div >
+          <div>
               <div class="in1scan-hdr">
 
                   <h1 class="in1scan-txt">
