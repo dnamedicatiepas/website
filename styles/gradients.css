@@ -1,0 +1,11 @@
+/* Reusable gradient backgrounds, kept here for later use.
+   Not currently linked from any page — copy a rule into a page stylesheet
+   when needed rather than importing this file wholesale. */
+
+/* Soft pastel card background, originally used behind the initiative badge
+   mockup on the Professionals page (Figma 7389:660) before it was dropped
+   in favour of a plain, immersive image with no boxed background. */
+.pastel-gradient-card {
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 176, 205, 0.12) 0%, rgba(134, 135, 234, 0.12) 60%, rgba(138, 225, 91, 0.12) 100%);
+}

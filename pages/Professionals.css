@@ -17,6 +17,12 @@ body[data-page="professionals"] #nav {
   padding-bottom: 50px;
 }
 
+/* .border-bottom's -76px margin (styles.css) assumes the 100px .container2
+   gap this page removes above, so recompute the same ~24px gap from 0. */
+body[data-page="professionals"] .border-bottom {
+  margin-top: 24px;
+}
+
 /* ===== Betrouwbare medicatiebeslissingen (intro) ===== */
 body[data-page="professionals"] #intro h1 {
     text-align: center;
@@ -212,10 +218,279 @@ body[data-page="professionals"] .explanation-text__secondary {
   text-align: left;
 }
 
+/* ===== Een baanbrekend initiatief (Figma 7389:939 / 7389:942 / 7389:660) ===== */
+body[data-page="professionals"] #initiative-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 64px;
+}
+
+body[data-page="professionals"] #initiative-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 560px;
+}
+
+body[data-page="professionals"] .initiative-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(29, 28, 26, 0.2);
+}
+
+body[data-page="professionals"] .initiative-eyebrow {
+  margin: 0;
+  color: #1D1C1A;
+  font-family: Switzer;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body[data-page="professionals"] .initiative-title {
+  margin: 0;
+  color: #1D1C1A;
+  font-family: Switzer;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -1.92px;
+}
+
+body[data-page="professionals"] .initiative-description {
+  margin: 0;
+  color: rgba(29, 28, 26, 0.6);
+  font-family: Switzer;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body[data-page="professionals"] #initiative-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56%;
+  margin-right: calc(50% - 50vw);
+}
+
+body[data-page="professionals"] #initiative-image img {
+  width: 300%;
+  transform: rotate(20deg);
+  height: auto;
+}
+
+
 /* Logo strip sits below the explanation, centred and evenly spread. */
 body[data-page="professionals"] .mw-logos {
   align-content: center;
   justify-content: space-around;
   margin: 64px auto 0;
   padding: 0;
+}
+
+/* ===== Stats (Figma 7389:949 / 7389:943) ===== */
+body[data-page="professionals"] .stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+body[data-page="professionals"] .stat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  padding: 32px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+body[data-page="professionals"] .stat-card div {
+  display: flex;
+  justify-content: space-between;
+}
+
+body[data-page="professionals"] .stat-card__source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-end;
+  color: rgba(29, 28, 26, 0.6);
+  font-family: Switzer, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+body[data-page="professionals"] .stat-card--quote {
+  justify-content: space-between;
+  background: rgba(29, 28, 26, 0.06);
+  border: 1px solid rgba(29, 28, 26, 0.1);
+}
+
+body[data-page="professionals"] .stat-card--quote .stat-card__quote {
+  order: -1;
+  max-width: 574px;
+  margin: 0;
+  color: #1D1C1A;
+  font-family: Switzer, sans-serif;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -1.92px;
+}
+
+body[data-page="professionals"] .stat-card--gradient {
+  justify-content: space-between;
+  background:
+    linear-gradient(235deg, #FFB0CD 2.6%, #C39BDB 12.5%, #8687EA 81.6%, #8AE15B 101.4%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body[data-page="professionals"] .stat-card--gradient .stat-card__source {
+  color: rgba(245, 238, 248, 0.6);
+}
+
+body[data-page="professionals"] .stat-card__number {
+  margin: 0;
+  color: #F5EEF8;
+  font-family: Switzer, sans-serif;
+  font-size: 128px;
+  font-weight: 500;
+  line-height: 0.84;
+  letter-spacing: -6.4px;
+}
+
+body[data-page="professionals"] .stat-card__body {
+  max-width: 574px;
+  margin: 0;
+  color: #F5EEF8;
+  font-family: Switzer, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body[data-page="professionals"] .stat-card__body strong {
+  font-weight: 600;
+}
+
+/* ===== Meer weten over de DNAmedicatiepas? (Figma 7389:486) ===== */
+body[data-page=professionals] #meer-weten {
+  position: relative;
+  width: 100%;
+  max-width: 1528px;
+  /* between-section gap lives here as a margin: the `section { padding-bottom: 100px }`
+     rule is wiped out by this block's own `padding` shorthand, and the photo bleeds
+     ~50px above the panel, so top/bottom margins are what actually separate it from
+     the FAQ above and the footer below (the latter also standing in for the `#app`
+     gap this page zeroes out). */
+  margin: 120px auto 100px;
+  padding: 80px 80px 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(29, 28, 26, 0.1);
+  background: #1D1C1A;
+  /* photo is allowed to bleed past the panel edges (see .mw-photo) */
+  overflow: visible;
+  isolation: isolate;
+}
+
+body[data-page=professionals] .background-text--on-dark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 24px;
+  letter-spacing: 12px;
+  background: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+
+body[data-page=professionals] .mw-photo {
+  position: absolute;
+  z-index: 1;
+  /* Figma node 7389:743 places the 635x635 photo inset 72px from the panel's
+     right edge (not bled past it like the patients page's landscape photo)
+     inside a 1528px-wide panel: 72/1528 and 635/1528 as percentages so it
+     scales the same way at other panel widths. */
+  right: 4.71%;
+  bottom: 0;
+  width: 41.56%;
+  height: 120%;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+body[data-page=professionals] .mw-scrim {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, rgba(29, 28, 26, 0) 0%, #1D1C1A 72%);
+  pointer-events: none;
+}
+
+body[data-page=professionals] .mw-content {
+  position: relative;
+  z-index: 3;
+  max-width: 622px;
+}
+
+body[data-page=professionals] .mw-title {
+  margin: 0 0 32px;
+  padding-left: 16px;
+  border-left: 1px solid #F4F2F3;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: clamp(36px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+body[data-page=professionals] .mw-body {
+  max-width: 531px;
+  margin: 0 0 24px;
+  color: #F4F2F3;
+  font-family: Switzer, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Logo strip sits inside the dark panel, layered above the photo and scrim. */
+body[data-page=professionals] .mw-logos {
+  position: relative;
+  justify-content: space-between;
+  margin-top: 64px;
+}
+
+@media (max-width: 900px) {
+  body[data-page="professionals"] .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="professionals"] .stat-card--quote .stat-card__quote {
+    font-size: 36px;
+  }
+
+  body[data-page="professionals"] .stat-card__number {
+    font-size: 88px;
+  }
 }
