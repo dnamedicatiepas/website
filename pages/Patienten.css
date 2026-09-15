@@ -280,7 +280,8 @@ body[data-page="patienten"] .feature-card__icon {
   flex-shrink: 0;
   width: 80px;
   height: 80px;
-  background: transparent;
+  background: #FFF;
+  border-radius: 40px ;
   color: #1D1C1A;
   font-size: 32px;
   line-height: 1;
