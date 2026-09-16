@@ -16,7 +16,7 @@
    own box - a document-height-relative size can't be made to track it). */
 .page-gradient-bg {
   background-color: #FBF9FA;
-  background-image: linear-gradient(180deg, rgba(255, 176, 205, 0.35) 0%, rgba(195, 155, 219, 0.28) 35%, rgba(134, 135, 234, 0.28) 65%, rgba(138, 225, 91, 0.3) 100%);
+  background-image: linear-gradient(70deg, rgba(255, 176, 205, 0.15) 0%, rgba(195, 155, 219, 0.25) 35%, rgba(134, 135, 234, 0.25) 65%, rgba(138, 225, 91, 0.15) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
