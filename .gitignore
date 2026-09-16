@@ -16,6 +16,8 @@ eggs/
 .eggs/
 lib/
 lib64/
+# The Python rule above would also hide the site's ES-module helpers.
+!/lib/
 parts/
 sdist/
 var/
