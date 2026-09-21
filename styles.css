@@ -493,8 +493,24 @@ footer {
   align-items: center;
 }
 
+@media screen and (max-width: 1000px) {
+  .mw-photo {
+    display: none;
+  }
+
+  .mw-logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    row-gap: 24px;
+  }
+}
+
 @media screen and (max-width: 800px) {
   #veelgestelde-vragen {
     flex-direction: column;
   }
+
+  
 }

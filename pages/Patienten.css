@@ -425,7 +425,17 @@ body[data-page="patienten"] .mw-logos {
   margin-top: 64px;
 }
 
+@media screen and (max-width: 1200px){
+  body[data-page="patienten"] #in1scan {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    flex-direction: column;
+  }
+}
+
 @media screen and (max-width: 800px) {
+
   body[data-page="patienten"] .feature-grid {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -458,5 +468,17 @@ body[data-page="patienten"] .mw-logos {
     width: auto;
     transform: none;
     padding: 24px;
+  }
+
+  body[data-page="patienten"] .mw-photo {
+    display: none;
+  }
+
+  body[data-page="patienten"] .mw-logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    row-gap: 24px;
   }
 }
