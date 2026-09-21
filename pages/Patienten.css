@@ -187,19 +187,23 @@ body[data-page="patienten"] .stap-kaart {
   overflow: hidden;
 }
 
+/* The exports are left-crops of the same 1280x640 Figma frame with the right
+   edge intact, so matching the card's height and pinning right reproduces the
+   design's placement and scale; the box shrinks to the image so the fade below
+   lands on the image's own left edge. */
 body[data-page="patienten"] .stap-visual {
   position: absolute;
   inset: 0 0 0 auto;
-  width: 58%;
+  display: flex;
+  justify-content: flex-end;
   overflow: hidden;
   pointer-events: none;
 }
 
 body[data-page="patienten"] .stap-visual img {
-  width: 100%;
+  display: block;
   height: 100%;
-  object-fit: cover;
-  object-position: right center;
+  width: auto;
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px);
           mask-image: linear-gradient(to right, transparent 0, #000 48px);
 }
@@ -419,4 +423,40 @@ body[data-page="patienten"] .mw-logos {
   position: relative;
   justify-content: space-between;
   margin-top: 64px;
+}
+
+@media screen and (max-width: 800px) {
+  body[data-page="patienten"] .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  body[data-page="patienten"] .stap-kaart {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+  }
+
+  body[data-page="patienten"] .stap-visual {
+    position: static;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* The exports carry the desktop frame's empty left half, so keep filling the
+     height and let the flex end-alignment clip that dead space away. */
+  body[data-page="patienten"] .stap-visual img {
+    flex: none;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+
+  body[data-page="patienten"] .stap-tekst {
+    position: static;
+    top: auto;
+    left: auto;
+    width: auto;
+    transform: none;
+    padding: 24px;
+  }
 }
