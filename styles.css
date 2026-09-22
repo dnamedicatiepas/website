@@ -542,6 +542,11 @@ footer {
 }
 
 @media screen and (max-width: 800px) {
+  .background-text{
+      background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 30%);
+      background-clip: text;
+  }
+
   #veelgestelde-vragen {
     flex-direction: column;
   }
@@ -554,6 +559,18 @@ footer {
 
   nav {
     flex-direction: column;
+    /* The nav->first-section gap is this padding plus .container2's row gap
+       below, which came to 200px. Professionals.css already pins its own page
+       to 50px (padding 50 + gap 0) at higher specificity, so matching those two
+       numbers here lines the other pages up with it without touching it. */
+    padding-bottom: 50px;
+  }
+
+  .container2 {
+    /* .container2 has exactly two children - nav and #app - so this gap is only
+       ever the nav-to-content distance. Section-to-section spacing is #app's
+       own gap and is left alone. */
+    gap: 0;
   }
 
   .media-dissappear {
