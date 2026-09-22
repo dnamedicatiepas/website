@@ -26,7 +26,7 @@ export default function Faq() {
                     Meer vragen?
                 </p>
                 <p class="h2-caption">
-                    Neem contact op met het team via consortium@dnamedicatiepas.nl
+                    Neem contact op met het team via consortium@mijndnamedicatiepas.nl
                 </p>
             </div>
         </div>

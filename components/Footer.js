@@ -10,7 +10,7 @@ export default function Footer() {
     <footer>
         <div>
             <p class="stap-body">
-                © DNAmedicatiepas B.V.
+                © Consortium B.V.
             </p>
         </div>
         <div class="logo">
