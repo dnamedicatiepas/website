@@ -482,6 +482,11 @@ body[data-page=professionals] .mw-logos {
 }
 
 @media (max-width: 900px) {
+  body[data-page="professionals"] #explanation-top {
+    flex-direction: column;
+    gap: 120px;
+  }
+
   body[data-page="professionals"] .stats-grid {
     grid-template-columns: 1fr;
   }
