@@ -543,7 +543,7 @@ footer {
 
 @media screen and (max-width: 800px) {
   .background-text{
-      background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 15%);
+      background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 10%);
       background-clip: text;
   }
 
