@@ -482,6 +482,15 @@ body[data-page=professionals] .mw-logos {
 }
 
 @media (max-width: 900px) {
+  body[data-page="professionals"] #intro h1 {
+      font-size: 55px;
+  }
+
+  body[data-page="professionals"] #explanation-top {
+    flex-direction: column;
+    gap: 120px;
+  }
+
   body[data-page="professionals"] .stats-grid {
     grid-template-columns: 1fr;
   }
@@ -492,5 +501,14 @@ body[data-page=professionals] .mw-logos {
 
   body[data-page="professionals"] .stat-card__number {
     font-size: 88px;
+  }
+
+  body[data-page="professionals"] #initiative-top {
+    flex-direction: column;
+  }
+
+  body[data-page="professionals"] #initiative-image {
+    width: 100%;
+    margin-right: calc(45% - 50vw);
   }
 }

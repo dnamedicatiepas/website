@@ -82,7 +82,7 @@ section {
 }
 
 /* ===== Nav ===== */
-#nav {
+nav {
     display: flex;
     justify-content: space-between;
     padding-bottom: 100px;
@@ -512,5 +512,17 @@ footer {
     flex-direction: column;
   }
 
-  
+  .logo {
+    align-items: center;
+    justify-content: center;
+    width: auto;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  .media-dissappear {
+    display: none;
+  }
 }
