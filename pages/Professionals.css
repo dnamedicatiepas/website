@@ -292,10 +292,11 @@ body[data-page="professionals"] #initiative-image {
   width: 56%;
   /* Bleeds to the viewport's right edge; see .edge-bars for the 5.5556%. */
   margin-right: -5.5556%;
-  /* The badge below is deliberately blown up to 300% and rotated, which used to
-     leave roughly a screen's worth of it hanging past the right edge with nothing
-     clipping it. Cut the bleed off here, at the viewport edge. */
-  overflow: hidden;
+  /* Deliberately NOT clipped here: this box only spans .container2 (90vw), so
+     an `overflow: hidden` would cut the badge ~5vw short of the screen edge and
+     leave a visible straight edge. The bleed is clipped at the viewport by
+     .container's `overflow-x: clip` (styles.css) instead - the same mechanism
+     the patients hero's .badge-frame relies on. */
 }
 
 body[data-page="professionals"] #initiative-image img {
@@ -522,15 +523,7 @@ body[data-page=professionals] .mw-logos {
 
   body[data-page="professionals"] #initiative-image {
     width: 100%;
-    /* No bleed at this size - #initiative-top has gone to a column, so the image
-       already spans the full content width. */
-    margin-right: 0;
-  }
-
-  /* At 300% only the badge's middle third would be visible once the box above
-     clips it, so scale the blow-up back to something that still reads. */
-  body[data-page="professionals"] #initiative-image img {
-    width: 150%;
+    margin-right: calc(45% - 50vw);
   }
 
   /* 80px of side padding leaves ~190px of content on a phone, which .mw-title
