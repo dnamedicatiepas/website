@@ -481,4 +481,13 @@ body[data-page="patienten"] .mw-logos {
     justify-items: center;
     row-gap: 24px;
   }
+
+  /* 80px of side padding leaves ~190px of content on a phone, which .mw-title
+     and the logo grid both overflow - and this panel is `overflow: visible` so
+     that it can bleed .mw-photo, which is hidden at this size anyway. */
+  body[data-page="patienten"] #meer-weten {
+    margin-top: 80px;
+    padding: 40px 24px 32px;
+    overflow: hidden;
+  }
 }

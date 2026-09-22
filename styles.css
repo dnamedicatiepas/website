@@ -14,7 +14,12 @@ a {
 }
 
 html, body {
-    overflow-x: hidden;
+    /* `clip` rather than `hidden`: `hidden` on one axis forces the other to
+       compute to `auto`, which quietly turns <body> into a scroll container.
+       This only guards what is laid out inside <body> though - .container2 is
+       absolutely positioned, so see .container below for the clip that actually
+       catches its bleed. */
+    overflow-x: clip;
     max-width: 100%;
     min-height: 100%;
 }
@@ -26,6 +31,14 @@ section {
 /* ===== Shell (index.html) ===== */
 .container {
     width: 100%;
+    /* .container2 is absolutely positioned and nothing above it was a containing
+       block, so its overflow used to escape to the initial containing block where
+       no ancestor's `overflow` could ever clip it. `position: relative` puts this
+       box in its containing-block chain; `clip` (not `hidden`) then catches
+       sideways bleed while leaving vertical overflow visible, which matters
+       because .container2 runs far past this box's bottom. */
+    position: relative;
+    overflow-x: clip;
     /* Minimum document height; short pages (404) still scroll to here. */
     height: 2000px;
     flex-grow: 1;
@@ -45,17 +58,18 @@ section {
 }
 
 .border-bottom {
-    /* .container2 puts a 100px flex gap before every child; pull this one back up
-       so the footer sits ~24px above the bottom bar instead of 100px. */
-    margin: -76px 0 0;
-    /*position: fixed;*/
-    width: 100vw;
+    /* Spans the full viewport from inside .container2 (left: 5%; width: 90%):
+       5vw is 5/90 = 5.5556% of this box, so a negative margin that wide on each
+       side lands the bar exactly on the viewport edges. Percentages rather than
+       the old `width: 100vw` + translateX hack, because 100vw counts the classic
+       scrollbar gutter and so always overshot by its width.
+       The top margin pulls the bar back up through .container2's 100px flex gap
+       so the footer sits ~24px above it instead of 100px. */
+    margin: -76px -5.5556% 0;
+    width: auto;
     height: 6px;
     background: linear-gradient(270deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
     border-top: 1px solid rgba(29, 28, 26, 0.10);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 #hero {
@@ -66,7 +80,10 @@ section {
 .container2 {
     position: absolute;
     left: 5%;
-    top: 6%;
+    /* Was `6%`, which resolved against the initial containing block (the viewport)
+       and so meant 6vh. Now that .container is the containing block, spell that
+       out - otherwise this would resolve against .container's own height. */
+    top: 6vh;
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -262,22 +279,27 @@ nav {
     align-self: stretch;
     color: #1D1C1A;
     font-family: Switzer;
-    font-size: 80px;
+    /* "juiste medicatie." is one unbreakable word per line; at a flat 80px it is
+       wider than a phone, so it has to scale with the viewport. */
+    font-size: clamp(36px, 8vw, 80px);
     font-style: normal;
     font-weight: 500;
     line-height: 50%; /* 80px */
-    letter-spacing: -4px;
+    /* em, not px: -4px at the clamped-down size crushes the glyphs together. */
+    letter-spacing: -0.05em;
+    overflow-wrap: break-word;
 }
 
 .in1scan-juiste {
     align-self: stretch;
     color: #1D1C1A;
     font-family: Switzer;
-    font-size: 80px;
+    font-size: clamp(36px, 8vw, 80px);
     font-style: normal;
     font-weight: 500;
     /* line-height: 100%; /* 80px */
-    letter-spacing: -4px;
+    letter-spacing: -0.05em;
+    overflow-wrap: break-word;
     background: linear-gradient(270deg, #8AE15B 0%, #8687EA 20%, #C39BDB 90%, #FFB0CD 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -288,11 +310,13 @@ h2 {
   align-self: stretch;
     color: #1D1C1A;
     font-family: Switzer;
-    font-size: 65px;
+    /* "Veelgestelde" cannot wrap; at a flat 65px it overflows the FAQ panel. */
+    font-size: clamp(32px, 5.5vw, 65px);
     font-style: normal;
     font-weight: 500;
     line-height: 1.1;
-    letter-spacing: -4px;
+    letter-spacing: -0.05em;
+    overflow-wrap: break-word;
     margin-bottom: 24px;
 }
 
@@ -302,6 +326,11 @@ h2 {
   font-weight: 400;
   line-height: 1.5;
   color: rgba(29, 28, 26, 0.8);
+  /* "consortium@dnamedicatiepas.nl" is one ~280px token, which sets the FAQ
+     panel's min-content width and so drags the whole panel past the viewport on
+     a small phone. `anywhere` (not `break-word`) is what actually shrinks that
+     min-content width rather than only permitting the break after the fact. */
+  overflow-wrap: anywhere;
 }
 
 /* Body copy: step cards, FAQ answers and the footer. */
@@ -479,6 +508,11 @@ transform: rotate(180deg);
 .mw-logos img {
   display: block;
   width: auto;
+  /* The per-logo heights below give each image a natural width that is wider
+     than a grid cell on a phone. Cap the width and let object-fit letterbox it
+     rather than stretch the logo out of shape. */
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .mw-logos li:nth-child(1) img { height: 27px; }
@@ -524,5 +558,29 @@ footer {
 
   .media-dissappear {
     display: none;
+  }
+
+  /* Both labels are `white-space: nowrap`, so let the pills wrap onto two rows
+     rather than push the nav past the viewport on narrow phones. */
+  .segmented-toggle {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Copyright + logo + CTA is ~490px of unshrinkable content (the CTA label is
+     `white-space: nowrap` and the logo has a fixed width), so stack the three
+     rather than let them run off the side. */
+  footer {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+
+  /* Both labels are `white-space: nowrap` by default. "Bekijk alle veelgestelde
+     vragen" is ~296px unbroken, which sets the FAQ panel's min-content width and
+     pushes the panel itself past the viewport on a small phone. */
+  .faq-button__label,
+  .cta-button__label {
+    white-space: normal;
   }
 }
