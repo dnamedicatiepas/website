@@ -30,10 +30,15 @@ body[data-page="professionals"] #intro h1 {
     margin: 0 auto;
     color: #1D1C1A;
     font-family: Switzer;
-    font-size: 80px;
+    /* "medicatiebeslissingen," is a single unbreakable 22-character word - at a
+       flat 80px (or the old 55px mobile step) it is far wider than a phone, so
+       the size has to track the viewport. */
+    font-size: clamp(32px, 7vw, 80px);
     font-style: normal;
-    font-weight: 500;/* 80px */
-    letter-spacing: -4px;
+    font-weight: 500;
+    /* em, not px: -4px at the clamped-down size crushes the glyphs together. */
+    letter-spacing: -0.05em;
+    overflow-wrap: break-word;
 }
 
 /* ===== Uw pas, uitgegeven door : (Figma 7468:2) ===== */
@@ -57,8 +62,11 @@ body[data-page="professionals"] .edge-bars {
   pointer-events: none;
 }
 
-body[data-page="professionals"] .edge-bars--left  { left: calc(50% - 50vw); }
-body[data-page="professionals"] .edge-bars--right { right: calc(50% - 50vw); flex-direction: row-reverse; }
+/* Bled out to the viewport edges: this box spans .container2 (left: 5%; width:
+   90%), so 5vw is 5/90 = 5.5556% of it. Percentages rather than `calc(50% - 50vw)`
+   so the two sides cannot drift apart by the width of a classic scrollbar. */
+body[data-page="professionals"] .edge-bars--left  { left: -5.5556%; }
+body[data-page="professionals"] .edge-bars--right { right: -5.5556%; flex-direction: row-reverse; }
 
 body[data-page="professionals"] .edge-bar {
   width: 48px;
@@ -146,6 +154,9 @@ body[data-page="professionals"] .pas-panel__cta {
 body[data-page="professionals"] #data {
   display: flex;
   gap: 48px;
+  /* Two fixed columns at a 48px gap do not fit a phone; let them fall onto
+     two rows instead of pushing the section sideways. */
+  flex-wrap: wrap;
 }
 
 body[data-page="professionals"] .data-listing {
@@ -158,11 +169,11 @@ body[data-page="professionals"] .data-bignumber {
     margin: 0;
     color: #1D1C1A;
     font-family: Switzer;
-    font-size: 64px;
+    font-size: clamp(40px, 6vw, 64px);
     font-style: normal;
     font-weight: 500;
     line-height: 1;
-    letter-spacing: -2.56px;
+    letter-spacing: -0.04em;
 }
 
 body[data-page="professionals"] .data-text {
@@ -255,11 +266,12 @@ body[data-page="professionals"] .initiative-title {
   margin: 0;
   color: #1D1C1A;
   font-family: Switzer;
-  font-size: 48px;
+  font-size: clamp(28px, 4.5vw, 48px);
   font-style: normal;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: -1.92px;
+  letter-spacing: -0.04em;
+  overflow-wrap: break-word;
 }
 
 body[data-page="professionals"] .initiative-description {
@@ -278,7 +290,13 @@ body[data-page="professionals"] #initiative-image {
   justify-content: center;
   flex-shrink: 0;
   width: 56%;
-  margin-right: calc(50% - 50vw);
+  /* Bleeds to the viewport's right edge; see .edge-bars for the 5.5556%. */
+  margin-right: -5.5556%;
+  /* Deliberately NOT clipped here: this box only spans .container2 (90vw), so
+     an `overflow: hidden` would cut the badge ~5vw short of the screen edge and
+     leave a visible straight edge. The bleed is clipped at the viewport by
+     .container's `overflow-x: clip` (styles.css) instead - the same mechanism
+     the patients hero's .badge-frame relies on. */
 }
 
 body[data-page="professionals"] #initiative-image img {
@@ -482,10 +500,6 @@ body[data-page=professionals] .mw-logos {
 }
 
 @media (max-width: 900px) {
-  body[data-page="professionals"] #intro h1 {
-      font-size: 55px;
-  }
-
   body[data-page="professionals"] #explanation-top {
     flex-direction: column;
     gap: 120px;
@@ -510,5 +524,14 @@ body[data-page=professionals] .mw-logos {
   body[data-page="professionals"] #initiative-image {
     width: 100%;
     margin-right: calc(45% - 50vw);
+  }
+
+  /* 80px of side padding leaves ~190px of content on a phone, which .mw-title
+     and the logo grid both overflow - and this panel is `overflow: visible` so
+     that it can bleed .mw-photo, which is hidden at this size anyway. */
+  body[data-page="professionals"] #meer-weten {
+    margin: 80px auto 64px;
+    padding: 40px 24px 32px;
+    overflow: hidden;
   }
 }
