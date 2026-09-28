@@ -199,7 +199,7 @@ section {
 
 .segmented-toggle__label {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
   white-space: nowrap;
   text-align: center;
@@ -281,7 +281,7 @@ section {
 .cta-button__label {
   padding: 8px 12px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
   white-space: nowrap;
 }
@@ -312,7 +312,7 @@ section {
   align-self: stretch;
   /* "juiste medicatie." is one unbreakable word per line; at a flat 80px it is
      wider than a phone, so it has to scale with the viewport. */
-  font-size: clamp(36px, 8vw, 80px);
+  font-size: clamp(2.25rem, 8vw, 5rem);
   font-weight: 500;
   /* em, not px: -4px at the clamped-down size crushes the glyphs together. */
   letter-spacing: -0.05em;
@@ -333,7 +333,7 @@ section {
 h2 {
   align-self: stretch;
   /* "Veelgestelde" cannot wrap; at a flat 65px it overflows the FAQ panel. */
-  font-size: clamp(32px, 5.5vw, 65px);
+  font-size: clamp(2rem, 5.5vw, 4.0625rem);
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.05em;
@@ -342,7 +342,7 @@ h2 {
 }
 
 .h2-caption {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
   color: var(--color-ink-80);
@@ -356,7 +356,7 @@ h2 {
 /* Body copy: step cards, FAQ answers and the footer. */
 .body-text {
   font-weight: 400;
-  font-size: clamp(12px, 1.25vw, 16px);
+  font-size: clamp(0.75rem, 1.25vw, 1rem);
   line-height: 1.5;
 }
 
@@ -365,7 +365,7 @@ h2 {
    HTML. Both uses are aria-hidden, and generated text can't be selected. */
 .background-text {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 200%; /* 24px */
   word-break: break-word;
@@ -434,7 +434,7 @@ h2 {
   padding: 18px;
   border-bottom: 1px solid var(--color-ink-10);
   background-color: rgba(244, 242, 243, 0.35);
-  font-size: 15px;
+  font-size: 0.9375rem;
   cursor: pointer;
   transition: background-color 0.4s;
 }
@@ -557,7 +557,7 @@ h2 {
   padding-left: 16px;
   border-left: 1px solid var(--color-paper);
   color: var(--color-paper);
-  font-size: clamp(36px, 4.4vw, 64px);
+  font-size: clamp(2.25rem, 4.4vw, 4rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -567,7 +567,7 @@ h2 {
   max-width: 531px;
   margin: 0 0 24px;
   color: var(--color-paper);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
 }

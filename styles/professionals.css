@@ -25,7 +25,7 @@ main {
   margin: 0 auto;
   /* "medicatiebeslissingen," is a single unbreakable 22-character word; at a
      flat 80px it is far wider than a phone, so the size tracks the viewport. */
-  font-size: clamp(32px, 7vw, 80px);
+  font-size: clamp(2rem, 7vw, 5rem);
   font-weight: 500;
   /* em, not px: -4px at the clamped-down size crushes the glyphs together. */
   letter-spacing: -0.05em;
@@ -115,14 +115,14 @@ main {
 }
 
 .data-bignumber {
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.04em;
 }
 
 .data-text {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -136,7 +136,7 @@ main {
 }
 
 .explanation-text__primary {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
   text-align: left;
@@ -144,7 +144,7 @@ main {
 
 .explanation-text__secondary {
   color: var(--color-ink-60);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   text-align: left;
@@ -181,14 +181,14 @@ main {
 }
 
 .initiative-eyebrow {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
 }
 
 .initiative-title {
   margin: 0;
-  font-size: clamp(28px, 4.5vw, 48px);
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -197,7 +197,7 @@ main {
 
 .initiative-description {
   color: var(--color-ink-80);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -250,7 +250,7 @@ main {
   gap: 4px;
   align-self: flex-end;
   color: var(--color-ink-60);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -263,7 +263,7 @@ main {
 .stat-card--quote .stat-card__quote {
   order: -1;
   max-width: 574px;
-  font-size: 48px;
+  font-size: 3rem;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -1.92px;
@@ -281,7 +281,7 @@ main {
 
 .stat-card__number {
   color: #F5EEF8;
-  font-size: 128px;
+  font-size: 8rem;
   font-weight: 500;
   line-height: 0.84;
   letter-spacing: -6.4px;
@@ -290,7 +290,7 @@ main {
 .stat-card__body {
   max-width: 574px;
   color: #F5EEF8;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -325,11 +325,11 @@ main {
   }
 
   .stat-card--quote .stat-card__quote {
-    font-size: 36px;
+    font-size: 2.25rem;
   }
 
   .stat-card__number {
-    font-size: 88px;
+    font-size: 5.5rem;
   }
 
   #initiative-top {
