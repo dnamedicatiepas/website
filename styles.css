@@ -1,124 +1,164 @@
-/* Shared base: reset, shell layout, nav, buttons, typography and the FAQ block.
-   Page-specific rules live in pages/<Name>.css, scoped to body[data-page="..."].
-   A page stylesheet may also override the shell layout below (Professionals.css
-   tightens the section gap and the nav spacing, for example). */
+/* Shared by every page: tokens, reset, page layout, nav, <cta-button>,
+   typography, the FAQ and "Meer weten" blocks, the logo strip and the footer.
+   Page-only rules live in styles/<page>.css, which each page links after this
+   file.
+
+   Breakpoints (media queries can't read custom properties, so keep to these):
+     1200px  the patients hero stacks
+     1000px  two-column layouts collapse, logo strips become a grid
+      800px  phone: nav, FAQ and footer stack */
+
+/* ===== Tokens ===== */
+:root {
+  --color-ink: #1D1C1A;
+  --color-ink-06: rgba(29, 28, 26, 0.06);
+  --color-ink-10: rgba(29, 28, 26, 0.1);
+  --color-ink-20: rgba(29, 28, 26, 0.2);
+  --color-ink-60: rgba(29, 28, 26, 0.6);
+  --color-ink-80: rgba(29, 28, 26, 0.8);
+  --color-paper: #F4F2F3;
+  --color-page: #FBF9FA;
+
+  --brand-pink: #FFB0CD;
+  --brand-lilac: #C39BDB;
+  --brand-blue: #8687EA;
+  --brand-green: #8AE15B;
+  /* The thin bars at the top and bottom of every page. */
+  --gradient-bar: linear-gradient(270deg, var(--brand-pink) 0%, var(--brand-lilac) 50%, var(--brand-blue) 60%, var(--brand-green) 100%);
+
+  /* Visible on both the light page and the dark "Meer weten" panel. */
+  --focus-ring: 2px solid var(--brand-blue);
+
+  --font-sans: "Switzer", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Lets the FAQ answers animate to their natural height where supported. */
+  interpolate-size: allow-keywords;
+}
+
+/* ===== Reset & base ===== */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+body {
+  background-color: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }
 
-html, body {
-    /* `clip` rather than `hidden`: `hidden` on one axis forces the other to
-       compute to `auto`, which quietly turns <body> into a scroll container.
-       This only guards what is laid out inside <body> though - .container2 is
-       absolutely positioned, so see .container below for the clip that actually
-       catches its bleed. */
-    overflow-x: clip;
-    max-width: 100%;
-    min-height: 100%;
+/* The pastel page gradient, pinned to the viewport. A fixed layer rather than
+   `background-attachment: fixed`, which iOS Safari ignores. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(70deg, rgba(255, 176, 205, 0.15) 0%, rgba(195, 155, 219, 0.25) 35%, rgba(134, 135, 234, 0.25) 65%, rgba(138, 225, 91, 0.15) 100%);
+}
+
+/* components/*.js render their markup inside these elements. `contents` takes
+   the wrapper itself out of layout, so that markup lays out exactly as if it
+   were written in the page. */
+site-header,
+site-footer,
+faq-section,
+cta-button {
+  display: contents;
+}
+
+/* ===== Page layout ===== */
+/* Positioned so the hero DNA text can sit behind everything. `clip` trims the
+   edge bleeds (.edge-bars, #initiative-image) at the screen edge and cuts the
+   DNA text off at the bottom of short pages. */
+.page {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The content column shared by header, main and footer. Rules that bleed to
+   the screen edge use -5.5556%, because 5vw is 5/90 of this box. */
+.shell {
+  width: 90%;
+  margin-inline: auto;
+}
+
+.site-header {
+  padding-top: 6vh;
+}
+
+/* Spacing is set as margins on each block rather than as a gap on a wrapper,
+   so a page or breakpoint can change one distance without touching the rest. */
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  margin-top: 100px;
 }
 
 section {
-    padding-bottom: 100px;
+  padding-bottom: 100px;
 }
 
-/* ===== Shell (index.html) ===== */
-.container {
-    width: 100%;
-    /* .container2 is absolutely positioned and nothing above it was a containing
-       block, so its overflow used to escape to the initial containing block where
-       no ancestor's `overflow` could ever clip it. `position: relative` puts this
-       box in its containing-block chain; `clip` (not `hidden`) then catches
-       sideways bleed while leaving vertical overflow visible, which matters
-       because .container2 runs far past this box's bottom. */
-    position: relative;
-    overflow-x: clip;
-    /* Minimum document height; short pages (404) still scroll to here. */
-    height: 2000px;
-    flex-grow: 1;
-    align-items: center;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+.site-footer {
+  margin-top: 100px;
 }
 
-.border-top {
-    margin: 0;
-    /*position: fixed;*/
-    width: 100%;
-    height: 6px;
-    background: linear-gradient(270deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
-    border-top: 1px solid rgba(29, 28, 26, 0.10);
+.border-top,
+.border-bottom {
+  height: 6px;
+  background: var(--gradient-bar);
+  border-top: 1px solid var(--color-ink-10);
 }
 
 .border-bottom {
-    /* Spans the full viewport from inside .container2 (left: 5%; width: 90%):
-       5vw is 5/90 = 5.5556% of this box, so a negative margin that wide on each
-       side lands the bar exactly on the viewport edges. Percentages rather than
-       the old `width: 100vw` + translateX hack, because 100vw counts the classic
-       scrollbar gutter and so always overshot by its width.
-       The top margin pulls the bar back up through .container2's 100px flex gap
-       so the footer sits ~24px above it instead of 100px. */
-    margin: -76px -5.5556% 0;
-    width: auto;
-    height: 6px;
-    background: linear-gradient(270deg, #FFB0CD 0%, #C39BDB 50%, #8687EA 60%, #8AE15B 100%);
-    border-top: 1px solid rgba(29, 28, 26, 0.10);
+  margin-top: 24px;
 }
 
-#hero {
-    width: 100%;
+.noscript-nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
 }
 
-/* Nav plus #app, floated over the decorative hero. */
-.container2 {
-    position: absolute;
-    left: 5%;
-    /* Was `6%`, which resolved against the initial containing block (the viewport)
-       and so meant 6vh. Now that .container is the containing block, spell that
-       out - otherwise this would resolve against .container's own height. */
-    top: 6vh;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
+.noscript-nav a {
+  color: inherit;
+  text-decoration: underline;
 }
 
-/* The page's sections are swapped into #app; it stacks them with the same gap
-   as .container2 so nav → section → section spacing is uniform. */
-#app {
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
+/* ===== Nav (components/site-header.js) ===== */
+#nav {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 100px;
 }
 
-/* ===== Nav ===== */
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 100px;
-}
-
-.nav-item{
-    display: flex;
-    padding: 8px 12px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+.nav-item {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .logo {
-    margin: 0;
-    width: 173.424px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2.282px;
+  width: 173.424px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.282px;
 }
 
 .segmented-toggle {
@@ -134,49 +174,43 @@ nav {
   justify-content: center;
   border-radius: 8px;
   cursor: pointer;
-  border: none;
 }
 
-/* the whole pill is the link */
+/* The whole pill is the link. */
 .segmented-toggle__tab a {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  text-decoration: none;
   color: inherit;
 }
 
 .segmented-toggle__tab--active {
-  gap: 8px;
-  background-color: #1d1c1a;
+  background-color: var(--color-ink);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
 
 .segmented-toggle__tab--inactive {
-  background-color: rgba(29, 28, 26, 0.1);
+  background-color: var(--color-ink-10);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .segmented-toggle__label {
-  margin: 0;
-  font-family: 'Switzer', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
   white-space: nowrap;
-  word-break: break-word;
   text-align: center;
 }
 
 .segmented-toggle__label--active {
-  color: #f4f2f3;
+  color: var(--color-paper);
 }
 
 .segmented-toggle__label--inactive {
-  color: #1d1c1a;
+  color: var(--color-ink);
 }
 
 .segmented-toggle__pointer {
@@ -192,60 +226,70 @@ nav {
 }
 
 .segmented-toggle__pointer::before {
-  content: '';
+  content: "";
   display: block;
   width: 8px;
   height: 8px;
   border-radius: 2px;
-  background-color: #26171d;
+  background-color: #26171D;
   transform: rotate(45deg);
 }
 
-/* Both tabs carry a pointer in the markup; the router flips the tab modifier
-   and only the active tab shows it. */
+/* Both tabs carry a pointer; only the active tab shows it. */
 .segmented-toggle__tab--inactive .segmented-toggle__pointer {
   display: none;
 }
 
-/* ===== CTA button ===== */
+/* ===== CTA button (components/cta-button.js) ===== */
+/* A variant only swaps these two colours. */
 .cta-button {
+  --cta-bg: var(--color-ink-10);
+  --cta-fg: var(--color-ink);
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  text-decoration: none;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-.cta-button__label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background-color: rgba(29, 28, 26, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  font-family: 'Switzer', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #1d1c1a;
-  white-space: nowrap;
+.cta-button--invert {
+  --cta-bg: var(--color-paper);
 }
 
+.cta-button--dark {
+  --cta-bg: var(--color-ink);
+  --cta-fg: var(--color-paper);
+}
+
+.cta-button:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.cta-button__label,
 .cta-button__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
+  background-color: var(--cta-bg);
+  color: var(--cta-fg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cta-button__label {
+  padding: 8px 12px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.cta-button__icon {
   width: 40px;
   height: 40px;
   padding: 8px;
-  border-radius: 8px;
-  background-color: rgba(29, 28, 26, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #1d1c1a;
-  box-sizing: border-box;
 }
 
 .cta-button__icon svg {
@@ -253,250 +297,292 @@ nav {
   height: 24px;
 }
 
-.cta-button--invert .cta-button__label,
-.cta-button--invert .cta-button__icon {
-  background-color: #F4F2F3;
-  color: #1D1C1A;
-}
-
-.cta-button--dark .cta-button__label,
-.cta-button--dark .cta-button__icon {
-  background-color: #1D1C1A;
-  color: #F4F2F3;
-  align-items: left;
-}
-
 /* ===== Typography ===== */
-/* Display heading: the patients hero and the 404 page. */
-.in1scan-hdr {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: stretch;
+/* Two-line display heading: the patients hero and the 404 page. */
+.display-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
 }
 
-.in1scan-txt {
-    align-self: stretch;
-    color: #1D1C1A;
-    font-family: Switzer;
-    /* "juiste medicatie." is one unbreakable word per line; at a flat 80px it is
-       wider than a phone, so it has to scale with the viewport. */
-    font-size: clamp(36px, 8vw, 80px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 50%; /* 80px */
-    /* em, not px: -4px at the clamped-down size crushes the glyphs together. */
-    letter-spacing: -0.05em;
-    overflow-wrap: break-word;
+.display-heading__line,
+.display-heading__accent {
+  display: block;
+  align-self: stretch;
+  /* "juiste medicatie." is one unbreakable word per line; at a flat 80px it is
+     wider than a phone, so it has to scale with the viewport. */
+  font-size: clamp(36px, 8vw, 80px);
+  font-weight: 500;
+  /* em, not px: -4px at the clamped-down size crushes the glyphs together. */
+  letter-spacing: -0.05em;
+  overflow-wrap: break-word;
 }
 
-.in1scan-juiste {
-    align-self: stretch;
-    color: #1D1C1A;
-    font-family: Switzer;
-    font-size: clamp(36px, 8vw, 80px);
-    font-style: normal;
-    font-weight: 500;
-    /* line-height: 100%; /* 80px */
-    letter-spacing: -0.05em;
-    overflow-wrap: break-word;
-    background: linear-gradient(270deg, #8AE15B 0%, #8687EA 20%, #C39BDB 90%, #FFB0CD 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.display-heading__line {
+  line-height: 50%;
+}
+
+.display-heading__accent {
+  background: linear-gradient(270deg, var(--brand-green) 0%, var(--brand-blue) 20%, var(--brand-lilac) 90%, var(--brand-pink) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 h2 {
   align-self: stretch;
-    color: #1D1C1A;
-    font-family: Switzer;
-    /* "Veelgestelde" cannot wrap; at a flat 65px it overflows the FAQ panel. */
-    font-size: clamp(32px, 5.5vw, 65px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.05em;
-    overflow-wrap: break-word;
-    margin-bottom: 24px;
+  /* "Veelgestelde" cannot wrap; at a flat 65px it overflows the FAQ panel. */
+  font-size: clamp(32px, 5.5vw, 65px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  overflow-wrap: break-word;
+  margin-bottom: 24px;
 }
 
 .h2-caption {
-  font-family: Switzer;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.5;
-  color: rgba(29, 28, 26, 0.8);
-  /* "consortium@dnamedicatiepas.nl" is one ~280px token, which sets the FAQ
-     panel's min-content width and so drags the whole panel past the viewport on
-     a small phone. `anywhere` (not `break-word`) is what actually shrinks that
-     min-content width rather than only permitting the break after the fact. */
+  color: var(--color-ink-80);
+  /* "consortium@mijndnamedicatiepas.nl" is one ~300px token, which sets the FAQ
+     panel's min-content width and so drags the whole panel past the viewport
+     on a small phone. `anywhere` (not `break-word`) is what actually shrinks
+     that min-content width rather than only permitting the break. */
   overflow-wrap: anywhere;
 }
 
 /* Body copy: step cards, FAQ answers and the footer. */
-.stap-body {
-  margin: 0;
-  font-family: Switzer, sans-serif;
+.body-text {
   font-weight: 400;
   font-size: clamp(12px, 1.25vw, 16px);
   line-height: 1.5;
-  color: #1D1C1A;
 }
 
 /* ===== Decorative DNA text ===== */
-.background-text{
-    font-family: "IBM Plex Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 200%; /* 24px */
-    letter-spacing: 0px;
-    background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 100%);
-    background-clip: text;
-    word-break: break-word;         /* All browsers since IE 5.5+ */
-    overflow-wrap: anywhere;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    z-index: -1;
+/* The sequence lives here as generated content instead of in every page's
+   HTML. Both uses are aria-hidden, and generated text can't be selected. */
+.background-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 200%; /* 24px */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
 }
 
-.prevent-select { /*class for components that shouldn't be able to be selected */
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+.background-text::before {
+  content: "T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G T - A - C G - - A - T G - - C - A - - - T G C - - T - A - - C G - - - T - A C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - G A - - - C - T G - - A - - C - - T G - - - A - - C G - - T - - A - C - - G - - T - A C G - - T - - A - C G - - T - - A - C G - - T - - A - C - - G - - T A - - C - - - T G - A C - - T - - - G - - A - C - - T G - - A - - C - T G - - - A - - C - - T G - - A - - - C - - T G - - A - - C - T G - - - A - - C - - T G A - - - C - T G - - A - - C - - T G - - - A - - C G";
 }
 
-/* ===== Veelgestelde vragen (components/Faq.js) =====
+/* Behind the top of every page (rendered by components/site-header.js). Its
+   height is the text's own, so the fade runs over the text; .page clips it. */
+.background-text--hero {
+  position: absolute;
+  top: 6px; /* under .border-top */
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background-image: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 100%);
+}
+
+/* ===== Veelgestelde vragen (components/faq-section.js) =====
    Rows and panel are translucent so the page's pastel gradient shows through
    instead of sitting under an opaque grey/white card. */
-.accordion {
-  background-color: rgba(244, 242, 243, 0.35);
-  color: #1D1C1A;
-  cursor: pointer;
-  padding: 18px;
+#veelgestelde-vragen {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px;
+  /* An explicit width: with only auto margins the panel would shrink to its
+     content, which is narrow while every answer is closed. */
   width: 100%;
-  border: none;
-  border-bottom: 1px solid rgba(29, 28, 26, 0.1);
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
-  font-family: 'Switzer', sans-serif;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-.accordion:after {
-  content: '';
+.faq-intro {
+  flex: 0 0 320px; /* heading column: fixed width, left side */
+}
+
+.faq-intro a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.faq-list {
+  flex: 1; /* question column fills the rest */
+  min-width: 0;
+}
+
+.faq-item__question {
+  display: block;
+  list-style: none;
+  padding: 18px;
+  border-bottom: 1px solid var(--color-ink-10);
+  background-color: rgba(244, 242, 243, 0.35);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+/* Safari still draws the disclosure triangle without this. */
+.faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__question::after {
+  content: "";
   display: inline-block;
+  float: right;
   width: 14px;
   height: 14px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: contain;
   transition: transform 0.3s ease;
-  float: right;
 }
 
-.active:after {
-transform: rotate(180deg);
+.faq-item[open] > .faq-item__question::after {
+  transform: rotate(180deg);
 }
 
-.active, .accordion:hover {
+.faq-item__question:hover,
+.faq-item[open] > .faq-item__question {
   background-color: rgba(244, 242, 243, 0.6);
 }
 
-.panel {
-  padding: 0 18px;
-  background-color: transparent;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
+.faq-item__question:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: -2px;
 }
 
-.panel p{
+.faq-item__answer {
+  padding: 0 18px;
+}
+
+.faq-item__answer p {
   padding: 18px;
 }
 
-#veelgestelde-vragen {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 64px;
-  max-width: 1080px;
-  margin: 0 auto;          /* centre the whole block on the page */
-  padding-left: 36px;
-  padding-right: 36px;
+/* Where supported, slide the answer open instead of showing it instantly. */
+@supports selector(::details-content) {
+  .faq-item::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition: block-size 0.2s ease-out, content-visibility 0.2s ease-out allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+.faq-list .cta-button {
+  margin-top: 20px;
+}
+
+/* ===== Meer weten (dark call-to-action panel on both pages) ===== */
+/* Page stylesheets set only .mw-photo's placement and the bottom margin. */
+#meer-weten {
+  position: relative;
+  width: 100%;
+  max-width: 1528px;
+  /* The panel's own padding replaces `section { padding-bottom }`, and the
+     photo bleeds ~50px above the panel, so a top margin is what separates it
+     from the FAQ. */
+  margin: 120px auto 0;
+  padding: 80px 80px 48px;
   border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-ink-10);
+  background: var(--color-ink);
+  /* The photo may bleed past the panel edges (see .mw-photo). */
+  overflow: visible;
+  isolation: isolate;
 }
 
-#veelgestelde-vragen {
-  padding: 30px;
+.background-text--on-dark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 24px;
+  letter-spacing: 12px;
+  background-image: linear-gradient(180deg, rgba(244, 242, 243, 0.2) 0%, rgba(244, 242, 243, 0) 100%);
 }
 
-#veelgestelde-vragen > div:first-child {
-  flex: 0 0 320px;         /* heading column: fixed width, left side */
+.mw-photo {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
 }
 
-#accordion-menu {
-  flex: 1;                 /* accordion column fills the rest */
-  min-width: 0;
+.mw-scrim {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  border-radius: 0 0 24px 24px;
+  background: linear-gradient(180deg, rgba(29, 28, 26, 0) 0%, var(--color-ink) 72%);
+  pointer-events: none;
 }
 
-.faq-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  text-decoration: none;
-  cursor: pointer;
-  padding-top: 20px;
-  color: #F4F2F3;
+.mw-content {
+  position: relative;
+  z-index: 3;
+  max-width: 622px;
 }
 
-.faq-button__label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background-color: #1D1C1A;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  font-family: 'Switzer', sans-serif;
+.mw-title {
+  margin: 0 0 32px;
+  padding-left: 16px;
+  border-left: 1px solid var(--color-paper);
+  color: var(--color-paper);
+  font-size: clamp(36px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.mw-body {
+  max-width: 531px;
+  margin: 0 0 24px;
+  color: var(--color-paper);
+  font-size: 20px;
   font-weight: 400;
-  font-size: 16px;
   line-height: 1.5;
-  color: #F4F2F3;
-  white-space: nowrap;
 }
 
-.faq-button__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  border-radius: 8px;
-  background-color: #1D1C1A;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #F4F2F3;
-  box-sizing: border-box;
-}
-
-.faq-button__icon svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
+/* Logo strip inside the dark panel, layered above the photo and scrim. */
+#meer-weten .mw-logos {
+  position: relative;
+  z-index: 3;
+  justify-content: space-between;
+  margin-top: 64px;
 }
 
 /* ===== Hospital logo strip ===== */
-/* Alignment and margins differ per page; see Patienten.css / Professionals.css. */
+/* Also used under the explanation on the professionals page; see there. */
 .mw-logos {
-  z-index: 3;
   list-style: none;
   display: flex;
   align-items: center;
@@ -520,8 +606,8 @@ transform: rotate(180deg);
 .mw-logos li:nth-child(3) img { height: 40px; }
 .mw-logos li:nth-child(4) img { height: 48px; }
 
-/* ===== Footer (components/Footer.js) ===== */
-footer {
+/* ===== Footer (components/site-footer.js) ===== */
+.site-footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -539,16 +625,33 @@ footer {
     justify-items: center;
     row-gap: 24px;
   }
+
+  /* 80px of side padding leaves ~190px of content on a phone, which .mw-title
+     and the logo grid both overflow. The panel is `overflow: visible` only so
+     .mw-photo can bleed, and the photo is hidden at this size. */
+  #meer-weten {
+    margin-top: 80px;
+    padding: 40px 24px 32px;
+    overflow: hidden;
+  }
 }
 
 @media screen and (max-width: 800px) {
-  .background-text{
-      background: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 30%);
-      background-clip: text;
+  .background-text--hero {
+    background-image: linear-gradient(180deg, rgba(29, 28, 26, 0.42) 0%, rgba(29, 28, 26, 0) 10%);
   }
 
   #veelgestelde-vragen {
     flex-direction: column;
+    /* Stretch both blocks to the panel width. With flex-start they'd shrink to
+       their content, so the question list would widen when an answer opens. */
+    align-items: stretch;
+  }
+
+  /* The desktop 320px basis is the column's width; in this stacked layout it
+     would become a fixed height and leave a gap above the questions. */
+  .faq-intro {
+    flex: none;
   }
 
   .logo {
@@ -557,23 +660,17 @@ footer {
     width: auto;
   }
 
-  nav {
+  #nav {
     flex-direction: column;
-    /* The nav->first-section gap is this padding plus .container2's row gap
-       below, which came to 200px. Professionals.css already pins its own page
-       to 50px (padding 50 + gap 0) at higher specificity, so matching those two
-       numbers here lines the other pages up with it without touching it. */
     padding-bottom: 50px;
   }
 
-  .container2 {
-    /* .container2 has exactly two children - nav and #app - so this gap is only
-       ever the nav-to-content distance. Section-to-section spacing is #app's
-       own gap and is left alone. */
-    gap: 0;
+  /* The nav's own 50px padding is the whole nav-to-content distance here. */
+  main {
+    margin-top: 0;
   }
 
-  .media-dissappear {
+  .hide-on-mobile {
     display: none;
   }
 
@@ -587,16 +684,15 @@ footer {
   /* Copyright + logo + CTA is ~490px of unshrinkable content (the CTA label is
      `white-space: nowrap` and the logo has a fixed width), so stack the three
      rather than let them run off the side. */
-  footer {
+  .site-footer {
     flex-direction: column;
     gap: 24px;
     text-align: center;
   }
 
-  /* Both labels are `white-space: nowrap` by default. "Bekijk alle veelgestelde
-     vragen" is ~296px unbroken, which sets the FAQ panel's min-content width and
-     pushes the panel itself past the viewport on a small phone. */
-  .faq-button__label,
+  /* "Bekijk alle veelgestelde vragen" is ~296px unbroken, which sets the FAQ
+     panel's min-content width and pushes the panel itself past the viewport on
+     a small phone. */
   .cta-button__label {
     white-space: normal;
   }

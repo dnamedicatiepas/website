@@ -1,8 +1,6 @@
 {
   "recommendations": [
-    // Highlights and validates HTML inside html`...` tagged templates.
-    "runem.lit-plugin",
-    // Already installed: serves the app over http:// so ES modules load.
+    // Serves the site over http://, which the root-absolute paths (/styles.css) need.
     "ritwickdey.liveserver"
   ]
 }
