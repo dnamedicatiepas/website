@@ -1,179 +1,120 @@
-# dnamedicatiepas.nl
+# mijndnamedicatiepas.nl
 
-A single-page app with no framework and no build step. Routing is the hash
-API (`#/voor-professionals`), pages are ES modules that return HTML, and the
-nav is shared chrome that follows the current route.
+A static website with no framework, no build step and no dependencies. Every
+page is its own HTML file; the parts that repeat across pages (header, footer,
+FAQ, CTA buttons) are small [custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements)
+in `components/`.
 
 ## Running it
 
-ES modules are blocked on `file://`, so the app must be served over HTTP.
-Opening `index.html` by double-clicking will fail with a CORS error.
+All paths are root-absolute (`/styles.css`, `/images/...`), so the site must be
+served over HTTP from its root. Opening `index.html` by double-clicking will
+load it without styles.
 
 Use the Live Server extension (right-click `index.html` → **Open with Live
 Server**), or any static server:
 
 ```bash
-npx serve .
+npx serve .          # also serves 404.html for unknown paths
 # or
 python -m http.server 8000
-```
-
-## Editor setup
-
-Install the recommended extensions when VS Code prompts, or:
-
-```
-ext install runem.lit-plugin
-```
-
-This validates the HTML inside `` html`...` `` templates — unclosed tags,
-unknown tag names, bad attributes — and adds highlighting and autocomplete.
-
-If you are using any of the Jetbrains IDE's such as WebStorm or PHPStorm there is no need for an extra
-plugin. It will automatically recognize HTML inside templates and format code.
-
-`jsconfig.json` enables `checkJs` and `strict`, so the JavaScript is
-type-checked from JSDoc comments. To run the same check in a terminal:
-
-```bash
-npx -p typescript tsc -p jsconfig.json
 ```
 
 ## Layout
 
 ```
-index.html                 Entry point: decorative hero, nav, #app container, module script
-app.js                     Router: route table, CSS loading, nav state, view swapping
-styles.css                 Shared base: reset, shell layout, nav, buttons, typography, FAQ
-lib/html.js                html`` tagged template (auto-escaping) + raw()
-lib/page.js                Page typedef used by every page module
-lib/accordion.js           FAQ open/close behaviour (delegated, survives page swaps)
-components/CtaButton.js    "Informatie aanvragen"-style pill button
-components/Faq.js          "Veelgestelde Vragen" block, shared by both pages
-components/Footer.js       Footer + closing gradient bar
-pages/Patienten.js, .css   Voor Patiënten            #/
-pages/Professionals.js     Voor Professionals        #/voor-professionals
-pages/NotFound.js, .css    404 for any other route
-images/                    All images, both pages
+index.html                     Voor Patiënten                /
+voor-professionals/index.html  Voor Professionals            /voor-professionals/
+404.html                       Not found (served by the host for any unknown URL)
+styles.css                     Shared: tokens, reset, layout, nav, CTA button, typography, FAQ, Meer weten, logos, footer
+styles/<page>.css              Page-only rules, linked by that page after styles.css
+components/site-header.js      <site-header>  top bar, DNA backdrop, nav
+components/site-footer.js      <site-footer>  footer and closing bar
+components/faq-section.js      <faq-section>  "Veelgestelde Vragen"
+components/cta-button.js       <cta-button>   every call-to-action button
+images/                        All images; logos/on-dark and logos/on-light hold the hospital logos
 ```
 
-## Routes
+## Components
 
-| Route                   | Page                    | Nav tab            |
-| ----------------------- | ----------------------- | ------------------ |
-| `#/` (or no hash)       | `pages/Patienten.js`    | Voor Patiënten     |
-| `#/voor-professionals`  | `pages/Professionals.js`| Voor Professionals |
-| anything else           | `pages/NotFound.js`     | neither            |
+Each component is a classic script that defines a custom element and renders
+its markup into itself when it is added to the page. The scripts are loaded in
+`<head>` without `defer`: the elements are then defined before the parser
+reaches them, so they are present on first paint instead of popping in. They
+render into the page's own DOM (no shadow DOM), so the rules in `styles.css`
+apply to them as usual.
 
-Only hashes that start with `#/` are routes. A plain anchor such as
-`#section42` ("Bekijk hoe het werkt") or the `#` placeholder links are left to
-the browser, so they scroll without changing page.
+| Element | Attributes |
+| --- | --- |
+| `<site-header>` | `current="patienten"` or `"professionals"` marks that nav tab as the current page. Leave it off on pages that aren't in the nav. |
+| `<site-footer>` | none |
+| `<faq-section>` | none; the questions are the `FAQ_ITEMS` array in `components/faq-section.js` |
+| `<cta-button>` | see below |
+
+### `<cta-button>`
+
+```html
+<cta-button label="Informatie aanvragen" href="/contact/"></cta-button>
+<cta-button label="Bekijk hoe het werkt" href="#section42" variant="dark" icon="arrow-down"></cta-button>
+<cta-button label="Bron: PubMed" href="https://pubmed.ncbi.nlm.nih.gov/..." target="_blank"></cta-button>
+```
+
+| Attribute | Values | Default |
+| --- | --- | --- |
+| `label` | button text | required |
+| `href` | link target | required; a missing `href` renders `#` and logs a console warning |
+| `variant` | `default` (translucent), `invert` (light), `dark` | `default` |
+| `icon` | `arrow-up-right`, `arrow-down`, `plus` | `arrow-up-right` |
+| `target` | e.g. `_blank` (adds `rel="noopener noreferrer"`) | none |
+
+To add an icon, add an SVG string to `CTA_ICONS` in `components/cta-button.js`.
+To add a variant, add its name to `CTA_VARIANTS` and a `.cta-button--<name>`
+rule in `styles.css` that sets `--cta-bg` and `--cta-fg`.
+
+The label is an attribute rather than the element's text because the script
+runs before the parser has read the element's children.
 
 ## Adding a page
 
-**1. Create `pages/Contact.js`:**
+1. Copy `404.html` (the smallest page) to `<name>/index.html`, so the page is
+   served at `/<name>/`.
+2. Update `<title>`, the description, and add `<link rel="canonical">` and the
+   `og:` tags (see `index.html`). Remove `<meta name="robots" content="noindex">`.
+3. Put page-only CSS in `styles/<name>.css` and link it after `styles.css`.
+4. Include the component scripts the page uses in `<head>`.
+5. To add the page to the nav toggle, add it to `SITE_NAV_TABS` in
+   `components/site-header.js` and give the page `<site-header current="<name>">`.
 
-```js
-import { html } from "../lib/html.js";
+## CSS conventions
 
-/** @type {import("../lib/page.js").Page} */
-export default {
-  name: "contact",
-  title: "dnamedicatiepas.nl - Contact",
-  styles: new URL("./Contact.css", import.meta.url).href,
+- **Shared vs page CSS.** Anything used on more than one page goes in
+  `styles.css`. A page's stylesheet holds only what is specific to it; since it
+  loads after `styles.css`, its rules win over shared rules of equal
+  specificity.
+- **Tokens.** Colours, the brand gradient, fonts and the focus ring are custom
+  properties on `:root` in `styles.css`. Use them instead of hex values.
+- **Fonts.** `body` sets the font family; don't repeat `font-family` per rule.
+- **Breakpoints.** 1200px, 1000px and 800px (listed at the top of
+  `styles.css`). Media queries can't use custom properties, so stick to these.
+- **Layout.** `.page` wraps everything and clips anything that bleeds past
+  the screen edge. `.shell` is the 90%-wide content column used by the header,
+  `main` and the footer. Spacing between those blocks is set with margins in
+  `styles.css`, and a page can override one distance on its own (see
+  `styles/professionals.css`).
 
-  render() {
-    return html`
-      <section id="contact">
-        <h2>Contact</h2>
-      </section>
-    `;
-  },
-};
+## Checks
+
+`jsconfig.json` enables `checkJs` and `strict`, so the components are
+type-checked from their JSDoc comments:
+
+```bash
+npx -p typescript tsc -p jsconfig.json
 ```
 
-`name` is what lands in `body[data-page]`. `styles` is optional — omit it and
-the page just uses the shared base.
+## Deployment notes
 
-**2. Create `pages/Contact.css`,** scoping every selector to the page:
-
-```css
-body[data-page="contact"] #contact {
-  padding: 140px 24px;
-}
-```
-
-**3. Register the route in `app.js`:**
-
-```js
-import Contact from "./pages/Contact.js";
-
-const routes = {
-  // ...
-  "/contact": Contact,
-};
-```
-
-**4. Link to it** with `data-link` so the router handles the click:
-
-```html
-<a href="#/contact" data-link>Contact</a>
-```
-
-Links inside the segmented toggle in `index.html` are matched against the
-current route to decide which tab is active.
-
-## Conventions
-
-**Import paths need the `.js` extension.** Browsers don't resolve
-`./pages/Patienten` the way a bundler would.
-
-**Build markup with the `html` tag, not bare template literals.** Interpolated
-values are escaped automatically, so user data can't inject markup:
-
-```js
-html`<p>${userInput}</p>`   // escaped
-```
-
-Values that are already `html` results pass through unescaped, so components
-nest without double-escaping. To insert trusted markup from a plain string, opt
-out explicitly with `raw()` — never pass user input to it.
-
-**Scope page CSS under `body[data-page="..."]`.** Stylesheets are loaded once
-and stay in the document; the attribute is what keeps one page's rules from
-matching another's elements. Because the attribute sits on `<body>`, page CSS
-can also override the shell — `pages/Professionals.css` removes the section
-gap and tightens the nav spacing for that page only.
-
-**Put anything shared in `styles.css`** — reset, shell layout, nav, buttons,
-typography, the FAQ block.
-
-**Image paths are relative to `index.html`** (`images/...`), since every page
-is rendered into that one document.
-
-## How the router works
-
-`render(path)` in `app.js`:
-
-1. Looks up the page, falling back to `NotFound`.
-2. Flips the segmented toggle to the tab whose link matches the route.
-3. Awaits that page's stylesheet — loading it *before* the swap, otherwise the
-   page renders unstyled and reflows once the stylesheet lands. Each file
-   loads once.
-4. Bails out if a newer navigation started while the CSS was loading.
-5. Sets `body[data-page]` and `document.title`, swaps `#app.innerHTML` inside
-   `document.startViewTransition()` (instant swap where unsupported), then
-   scrolls to the top like a page load would.
-
-## Known limitations
-
-- **Hash-based routing** (`#/voor-professionals`), chosen so the app works from
-  any static host and in sandboxed preview environments. Switching to the
-  History API means adding a server rewrite so deep links don't 404.
-- **Full re-render on navigation.** Every swap replaces all of `#app`; there is
-  no diffing and no component state (an open FAQ panel closes on navigation).
-- **View Transitions are progressive enhancement.** The router already wraps
-  the swap in `startViewTransition`; the `::view-transition-*` animation rules
-  have not been added yet.
-- **Formatters skip template contents.** Prettier only formats `html` templates
-  it recognizes as lit's, so indentation inside them is manual.
+- `404.html` must stay at the site root; GitHub Pages, Netlify and Cloudflare
+  Pages serve it automatically for unknown URLs.
+- Without a build step, file names never change between deploys. Configure the
+  host to revalidate HTML, CSS and JS (e.g. `Cache-Control: no-cache` with
+  ETags) so visitors don't keep stale files after an update.
