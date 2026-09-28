@@ -1,6 +1,0 @@
-{
-  "recommendations": [
-    // Serves the site over http://, which the root-absolute paths (/styles.css) need.
-    "ritwickdey.liveserver"
-  ]
-}
